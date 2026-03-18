@@ -997,4 +997,14 @@
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button');
-    btn.textContent = '✅ M
+    btn.textContent = '✅ Message Sent!';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = 'Send Message ✉️';
+      btn.disabled = false;
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+</body>
+</html>
