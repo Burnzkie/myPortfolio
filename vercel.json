@@ -1,4 +1,8 @@
 {
   "name": "jude-burnea-portfolio",
-  "version": 2
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
 }
