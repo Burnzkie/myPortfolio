@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio | Jude Burnea - Full Stack Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="./image/P_icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -256,21 +257,90 @@
     border-color: var(--accent);
   }
 
-  /* Contact */
-  #contact { background: var(--bg2); }
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
-    padding: 0.95rem;
-    margin-bottom: 1rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-size: 0.95rem;
-  }
-  .contact-form textarea { min-height: 130px; resize: vertical; }
+ /* Contact Form Upgrade */
+.contact-form {
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
 
+/* Floating label style */
+.input-group {
+  position: relative;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 1.1rem 0.9rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.25s;
+}
+
+.input-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Label */
+.input-group label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: 0.25s ease;
+  background: var(--card);
+  padding: 0 6px;
+}
+
+/* Floating effect */
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group textarea:focus + label,
+.input-group textarea:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+/* Focus state */
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(108,99,255,0.3);
+}
+
+/* Button */
+.btn-send {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-send:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(108,99,255,0.3);
+}
+
+.btn-send:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
   footer {
     padding: 2rem 4rem;
     border-top: 1px solid var(--border);
@@ -447,11 +517,27 @@
   <h2 class="section-title">Let's Work Together</h2>
   <p class="section-sub">Have a project in mind? I'd love to hear from you.</p>
 
- <form onsubmit="sendMessage(event)">
-  <input type="text" placeholder="Your Name" required>
-  <input type="email" placeholder="Email Address" required>
-  <textarea placeholder="Tell me about your project..." required></textarea>
-  <button type="submit">Send Message ✉️</button>
+ <form class="contact-form" onsubmit="sendMessage(event)">
+  
+  <div class="input-group">
+    <input type="text" placeholder=" " required>
+    <label>Your Name</label>
+  </div>
+
+  <div class="input-group">
+    <input type="email" placeholder=" " required>
+    <label>Email Address</label>
+  </div>
+
+  <div class="input-group">
+    <textarea placeholder=" " required></textarea>
+    <label>Your Message</label>
+  </div>
+
+  <button type="submit" class="btn-send">
+    <span>Send Message ✉️</span>
+  </button>
+
 </form>
 </section>
 
@@ -513,17 +599,7 @@ async function sendMessage(e) {
     btn.disabled = false;
   }, 3000);
 }
-function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('button');
-    btn.textContent = '✅ Message Sent!';
-    btn.disabled = true;
-    setTimeout(() => {
-      btn.textContent = 'Send Message ✉️';
-      btn.disabled = false;
-      e.target.reset();
-    }, 2500);
-  }
+
 </script>
 </body>
 </html>
