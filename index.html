@@ -447,12 +447,12 @@
   <h2 class="section-title">Let's Work Together</h2>
   <p class="section-sub">Have a project in mind? I'd love to hear from you.</p>
 
-  <form class="contact-form" onsubmit="handleSubmit(event)" style="max-width:580px;">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Email Address" required>
-    <textarea placeholder="Tell me about your project..." required></textarea>
-    <button type="submit" class="btn-primary">Send Message ✉️</button>
-  </form>
+ <form onsubmit="sendMessage(event)">
+  <input type="text" placeholder="Your Name" required>
+  <input type="email" placeholder="Email Address" required>
+  <textarea placeholder="Tell me about your project..." required></textarea>
+  <button type="submit">Send Message ✉️</button>
+</form>
 </section>
 
 <footer>
@@ -477,7 +477,43 @@
   }
   animateFollower();
 
-  function handleSubmit(e) {
+async function sendMessage(e) {
+  e.preventDefault();
+
+  const btn = e.target.querySelector('button');
+
+  const data = {
+    name: e.target[0].value,
+    email: e.target[1].value,
+    message: e.target[2].value
+  };
+
+  btn.textContent = "Sending...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+      btn.textContent = "✅ Message Sent!";
+      e.target.reset();
+    } else {
+      btn.textContent = "❌ Failed. Try again.";
+    }
+  } catch (err) {
+    btn.textContent = "⚠️ Error. Try again.";
+  }
+
+  setTimeout(() => {
+    btn.textContent = "Send Message ✉️";
+    btn.disabled = false;
+  }, 3000);
+}
+function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('button');
     btn.textContent = '✅ Message Sent!';
