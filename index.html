@@ -205,50 +205,164 @@
       margin-bottom: 0.9rem;
     }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(315px, 1fr));
-      gap: 1.8rem;
-    }
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-    .project-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(108,99,255,0.3);
-    }
-    .project-thumb {
-      height: 175px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.6rem;
-    }
-    .project-body { padding: 1.4rem; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1rem; }
-    .tag {
-      background: rgba(108,99,255,0.12);
-      color: var(--accent);
-      padding: 0.22rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.71rem;
-      font-weight: 600;
-    }
-    .project-link {
-      padding: 0.55rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      text-align: center;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-    .project-link:hover { border-color: var(--accent); color: var(--accent); }
+   
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(108,99,255,0.35);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+.project-thumb {
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-thumb::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+  top: -50px;
+  right: -50px;
+}
+
+.project-body {
+  padding: 1.5rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background: rgba(108,99,255,0.12);
+  color: var(--accent);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.project-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.project-desc {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 0.94rem;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.project-desc.collapsed {
+  max-height: 180px;
+  overflow: hidden;
+}
+
+.project-desc.collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(to bottom, rgba(22,22,42,0), var(--card));
+}
+
+.project-desc ul {
+  margin-top: 1rem;
+  padding-left: 1.2rem;
+}
+
+.project-desc li {
+  margin-bottom: 0.55rem;
+}
+
+.see-more-btn {
+  margin-top: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.see-more-btn:hover {
+  opacity: 0.8;
+  transform: translateX(3px);
+}
+
+.project-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.project-link {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-align: center;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  border-color: var(--accent);
+  color: white;
+  background: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    border-radius: 16px;
+  }
+
+  .project-thumb {
+    height: 160px;
+    font-size: 3.2rem;
+  }
+
+  .project-body {
+    padding: 1.2rem;
+  }
+}
 
     /* Contact Form */
     .contact-form {
@@ -441,29 +555,177 @@
         </div>
       </div>
 
-      <div class="project-card">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">💸</div>
-        <div class="project-body">
-          <div class="project-tags"><span class="tag">Laravel</span><span class="tag">MySQL</span></div>
-          <div class="project-title">School Online Payment</div>
-          <div class="project-desc">Secure online payment system for school fees.</div>
-          <div style="display:flex; gap:0.8rem;">
-            <a href="https://github.com/Burnzkie/school-online-payment" class="project-link">GitHub</a>
-          </div>
-        </div>
+      <!-- SCHOOL PAYMENT -->
+  <div class="project-card">
+
+    <div class="project-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
+      💸
+    </div>
+
+    <div class="project-body">
+
+      <div class="project-tags">
+        <span class="tag">Laravel</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Payment Gateway</span>
       </div>
 
-      <div class="project-card">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0d1b2a, #1b2838);">🛒</div>
-        <div class="project-body">
-          <div class="project-tags"><span class="tag">PHP</span><span class="tag">MySQL</span></div>
-          <div class="project-title">JDB Parts</div>
-          <div class="project-desc">E-commerce platform for electronics and automotive parts.</div>
-          <div style="display:flex; gap:0.8rem;">
-            <a href="https://github.com/Burnzkie/jdb-online-store" class="project-link">GitHub</a>
-          </div>
-        </div>
+      <div class="project-title">
+        School Online Payment Management System
       </div>
+
+      <div class="project-desc collapsed">
+
+        Developed a full-stack web-based school payment management system
+        designed to simplify and automate financial transactions between
+        schools, students, and parents.
+
+        <br><br>
+
+        The platform supports five user roles:
+        <strong>Administrator</strong>,
+        <strong>Treasurer</strong>,
+        <strong>Cashier</strong>,
+        <strong>Student</strong>, and
+        <strong>Parent</strong>, each with dedicated dashboards,
+        permissions, and financial management tools.
+
+        <br><br>
+
+        Parents can securely link accounts to their students and pay fees
+        online through an integrated payment gateway.
+
+        Administrators can:
+
+        <ul>
+          <li>Manage students and user records</li>
+          <li>Create and manage school fees</li>
+          <li>Approve financial clearances</li>
+          <li>Monitor monthly revenue analytics</li>
+          <li>Track all financial transactions</li>
+        </ul>
+
+        Treasurers and cashiers can process payments,
+        monitor transaction history, and manage financial operations.
+
+        <br><br>
+
+        <strong>Core Features:</strong>
+
+        <ul>
+          <li>Multi-role authentication system</li>
+          <li>Online payment gateway integration</li>
+          <li>Student fee management</li>
+          <li>Financial clearance approval</li>
+          <li>Revenue and transaction analytics</li>
+          <li>Parent-to-student account linking</li>
+          <li>Password recovery and secure authentication</li>
+          <li>Responsive dashboard interface</li>
+        </ul>
+
+      </div>
+
+      <button class="see-more-btn">
+        See More →
+      </button>
+
+      <div class="project-actions">
+        <a href="https://github.com/Burnzkie/school-online-payment" class="project-link">
+          GitHub
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- JDBSHOP -->
+  <div class="project-card">
+
+    <div class="project-thumb" style="background: linear-gradient(135deg, #0d1b2a, #1b2838);">
+      🛒
+    </div>
+
+    <div class="project-body">
+
+      <div class="project-tags">
+        <span class="tag">PHP</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">E-Commerce</span>
+      </div>
+
+      <div class="project-title">
+        JDBShop – E-Commerce Platform
+      </div>
+
+      <div class="project-desc collapsed">
+
+        Developed a complete e-commerce platform with role-based access
+        management for <strong>Administrators</strong>,
+        <strong>Staff</strong>, and
+        <strong>Customers</strong>.
+
+        <br><br>
+
+        Customers can browse products, place orders, pay online or via
+        cash-on-delivery, track deliveries in real time, and request
+        item cancellations or refunds directly through the platform.
+
+        <br><br>
+
+        The platform also includes dynamic shipping fee computation based
+        on customer location to improve delivery cost accuracy.
+
+        <br><br>
+
+        Staff users can manage products through complete CRUD operations,
+        while administrators can monitor sales performance and analytics.
+
+        <br><br>
+
+        <strong>Admin Dashboard Features:</strong>
+
+        <ul>
+          <li>Monthly sales analytics</li>
+          <li>Top-selling product insights</li>
+          <li>Order and transaction monitoring</li>
+          <li>Inventory management</li>
+        </ul>
+
+        <strong>Core Features:</strong>
+
+        <ul>
+          <li>Multi-role authentication system</li>
+          <li>Online payment and COD support</li>
+          <li>Real-time order tracking</li>
+          <li>Dynamic shipping fee calculation</li>
+          <li>Refund and cancellation management</li>
+          <li>Product inventory CRUD operations</li>
+          <li>Sales reporting dashboard</li>
+          <li>Responsive e-commerce interface</li>
+        </ul>
+
+      </div>
+
+      <button class="see-more-btn">
+        See More →
+      </button>
+
+      <div class="project-actions">
+        <a href="https://github.com/Burnzkie/jdb-online-store" class="project-link">
+          GitHub
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
     </div>
   </section>
 
@@ -517,6 +779,26 @@
       submitBtn.textContent = "Sending...";
       submitBtn.disabled = true;
     });
+    const seeMoreButtons = document.querySelectorAll('.see-more-btn');
+
+seeMoreButtons.forEach(button => {
+
+  button.addEventListener('click', () => {
+
+    const description = button.previousElementSibling;
+
+    description.classList.toggle('collapsed');
+
+    if (description.classList.contains('collapsed')) {
+      button.innerHTML = 'See More →';
+    } else {
+      button.innerHTML = 'See Less ↑';
+    }
+
+  });
+
+});
+
   </script>
 </body>
 </html>
