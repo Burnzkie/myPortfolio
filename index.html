@@ -1,24 +1,27 @@
 <!DOCTYPE html>
+<!-- index.html -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Jude Burnea - Full Stack Developer</title>
+  <title>Jude Burnea — Full Stack Developer</title>
+  <link rel="icon" href="image/P_icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="icon" href="./image/P_icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Epilogue:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0a0a0f;
-      --bg2: #0f0f18;
-      --border: rgba(255,255,255,0.07);
-      --accent: #6c63ff;
-      --accent2: #ff6584;
-      --accent3: #43e97b;
-      --text: #f0f0f8;
-      --muted: #8888aa;
-      --card: #16162a;
+      --bg: #f7f5f2;
+      --bg2: #f0ede8;
+      --surface: #ffffff;
+      --border: #e5e0d8;
+      --accent: #2a2a72;
+      --accent2: #ff4d6d;
+      --text: #1a1a2e;
+      --muted: #7a7a8c;
+      --tag-bg: #ece9ff;
+      --tag-color: #2a2a72;
+      --card-shadow: 0 2px 20px rgba(42,42,114,0.07);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,413 +30,535 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Epilogue', sans-serif;
       overflow-x: hidden;
-      cursor: none;
     }
 
-    /* Cursor */
-    .cursor {
-      width: 10px; height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    .cursor-follower {
-      width: 32px; height: 32px;
-      border: 1.5px solid rgba(108,99,255,0.5);
-      border-radius: 50%;
-      position: fixed;
-      top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9998;
-    }
-
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 1rem 4rem;
+      padding: 1.1rem 5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(10,10,15,0.9);
-      backdrop-filter: blur(20px);
+      background: rgba(247,245,242,0.92);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav-logo {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Playfair Display', serif;
       font-weight: 800;
-      font-size: 1.35rem;
+      font-size: 1.2rem;
       color: var(--text);
       text-decoration: none;
+      letter-spacing: -0.02em;
     }
-    .nav-logo span { color: var(--accent); }
+    .nav-logo span { color: var(--accent2); }
 
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      margin-left: 2rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-left: 2.2rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--accent); }
 
+    /* ── HERO ── */
     .hero {
-      min-height: 82vh;
+      min-height: 100vh;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 420px;
       align-items: center;
-      gap: 2.5rem;
-      padding: 5.5rem 4rem 3rem;
+      gap: 4rem;
+      padding: 8rem 5rem 4rem;
+      position: relative;
     }
 
-    .hero-text h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.8rem, 5.5vw, 4.4rem);
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%;
+      height: 100%;
+      background: var(--bg2);
+      z-index: 0;
+    }
+
+    .hero-text { position: relative; z-index: 1; }
+    .hero-visual { position: relative; z-index: 1; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 1.6rem;
+      letter-spacing: 0.03em;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: #43a047;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6vw, 5rem);
       font-weight: 800;
-      line-height: 1.05;
+      line-height: 1.0;
       letter-spacing: -0.03em;
-      margin-bottom: 1.1rem;
+      margin-bottom: 1.4rem;
     }
 
-    .accent-text {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent2);
     }
 
     .hero-desc {
       color: var(--muted);
       font-size: 1.05rem;
-      line-height: 1.7;
-      max-width: 460px;
-      margin-bottom: 2rem;
+      line-height: 1.8;
+      max-width: 480px;
+      margin-bottom: 2.2rem;
+      font-weight: 400;
     }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
     .btn-primary {
       background: var(--accent);
       color: white;
-      padding: 0.85rem 1.9rem;
-      border-radius: 8px;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
       transition: all 0.25s;
     }
-    .btn-primary:hover { background: #7c75ff; transform: translateY(-2px); }
+    .btn-primary:hover { background: #3d3d9e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(42,42,114,0.25); }
 
     .btn-outline {
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       color: var(--text);
-      padding: 0.85rem 1.9rem;
-      border-radius: 8px;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
       text-decoration: none;
       font-weight: 500;
-      margin-left: 1rem;
+      font-size: 0.88rem;
+      transition: all 0.25s;
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-    .profile-frame {
-      width: 240px;
-      height: 290px;
+    /* Profile visual */
+    .profile-wrapper {
       position: relative;
+      width: 100%;
+      max-width: 360px;
       margin: 0 auto;
     }
-    .profile-img {
+    .profile-wrapper::before {
+      content: '';
       position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      object-fit: cover;
-      z-index: 2;
+      top: 18px; left: 18px;
+      right: -18px; bottom: -18px;
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      z-index: 0;
+      opacity: 0.25;
+    }
+    .profile-wrapper img {
       width: 100%;
-      height: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 14px;
+      position: relative;
+      z-index: 1;
+      box-shadow: var(--card-shadow);
     }
 
-    section { padding: 4.5rem 4rem; }
-    .section-label {
-      font-size: 0.78rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    /* Stats strip */
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 800;
       color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 0.8rem;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 5rem; }
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      font-weight: 700;
+      margin-bottom: 0.7rem;
     }
     .section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.1rem, 4vw, 2.9rem);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 800;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.9rem;
+      letter-spacing: -0.02em;
     }
     .section-sub {
       color: var(--muted);
-      max-width: 520px;
+      max-width: 500px;
       line-height: 1.7;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
     }
 
+    /* ── SKILLS ── */
     #skills { background: var(--bg2); }
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1.2rem;
     }
     .skill-card {
-      background: var(--card);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 1.5rem;
       transition: all 0.3s ease;
+      box-shadow: var(--card-shadow);
     }
     .skill-card:hover {
       transform: translateY(-4px);
-      border-color: rgba(108,99,255,0.3);
+      box-shadow: 0 12px 32px rgba(42,42,114,0.12);
+      border-color: rgba(42,42,114,0.2);
     }
     .skill-icon {
-      width: 44px; height: 44px;
+      width: 40px; height: 40px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin-bottom: 0.9rem;
     }
-
-   
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 2rem;
-}
-
-.project-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  overflow: hidden;
-  transition: all 0.35s ease;
-  position: relative;
-}
-
-.project-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(108,99,255,0.35);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
-}
-
-.project-thumb {
-  height: 190px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 4rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.project-thumb::before {
-  content: "";
-  position: absolute;
-  width: 180px;
-  height: 180px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 50%;
-  top: -50px;
-  right: -50px;
-}
-
-.project-body {
-  padding: 1.5rem;
-}
-
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.tag {
-  background: rgba(108,99,255,0.12);
-  color: var(--accent);
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-}
-
-.project-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.project-desc {
-  color: var(--muted);
-  line-height: 1.8;
-  font-size: 0.94rem;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.project-desc.collapsed {
-  max-height: 180px;
-  overflow: hidden;
-}
-
-.project-desc.collapsed::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 70px;
-  background: linear-gradient(to bottom, rgba(22,22,42,0), var(--card));
-}
-
-.project-desc ul {
-  margin-top: 1rem;
-  padding-left: 1.2rem;
-}
-
-.project-desc li {
-  margin-bottom: 0.55rem;
-}
-
-.see-more-btn {
-  margin-top: 1rem;
-  background: transparent;
-  border: none;
-  color: var(--accent);
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.see-more-btn:hover {
-  opacity: 0.8;
-  transform: translateX(3px);
-}
-
-.project-actions {
-  display: flex;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
-}
-
-.project-link {
-  flex: 1;
-  padding: 0.8rem;
-  border-radius: 10px;
-  text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-align: center;
-  border: 1px solid var(--border);
-  color: var(--muted);
-  transition: all 0.3s ease;
-}
-
-.project-link:hover {
-  border-color: var(--accent);
-  color: white;
-  background: var(--accent);
-}
-
-@media (max-width: 768px) {
-  .project-card {
-    border-radius: 16px;
-  }
-
-  .project-thumb {
-    height: 160px;
-    font-size: 3.2rem;
-  }
-
-  .project-body {
-    padding: 1.2rem;
-  }
-}
-
-    /* Contact Form */
-    .contact-form {
-      max-width: 580px;
+    .skill-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
     }
+    .skill-desc {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(42,42,114,0.13);
+    }
+
+    .project-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.08));
+    }
+
+    .project-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+    }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 0.88rem;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+    .project-desc.collapsed {
+      max-height: 100px;
+      overflow: hidden;
+    }
+    .project-desc.collapsed::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%; height: 50px;
+      background: linear-gradient(to bottom, transparent, white);
+    }
+    .project-desc ul { margin-top: 0.8rem; padding-left: 1.2rem; }
+    .project-desc li { margin-bottom: 0.4rem; }
+
+    .see-more-btn {
+      margin-top: 0.75rem;
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: 0.2s;
+      text-align: left;
+      padding: 0;
+    }
+    .see-more-btn:hover { opacity: 0.7; }
+
+    /* GitHub card link */
+    .github-card {
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 1.5rem;
+    }
+    .github-card:hover { opacity: 0.8; }
+    .github-card-left {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .github-icon {
+      width: 32px; height: 32px;
+      background: var(--text);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .github-icon svg { fill: white; width: 16px; height: 16px; }
+    .github-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .github-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .github-arrow {
+      color: var(--muted);
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+    .github-card:hover .github-arrow { transform: translateX(4px); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg2); }
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .contact-info p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .contact-item-icon {
+      width: 38px; height: 38px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .contact-item-text {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
     .contact-form input,
     .contact-form textarea {
       width: 100%;
-      padding: 1rem 1.1rem;
-      margin-bottom: 1.2rem;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      padding: 0.95rem 1.1rem;
+      margin-bottom: 1rem;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
       color: var(--text);
-      font-size: 0.95rem;
-      transition: 0.3s;
+      font-size: 0.92rem;
+      font-family: 'Epilogue', sans-serif;
+      transition: 0.25s;
     }
     .contact-form input:focus,
     .contact-form textarea:focus {
       border-color: var(--accent);
       outline: none;
-      box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+      box-shadow: 0 0 0 3px rgba(42,42,114,0.08);
     }
     .contact-form textarea {
       min-height: 140px;
       resize: vertical;
     }
     .btn-send {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      background: var(--accent);
       border: none;
-      padding: 1.1rem 2rem;
-      border-radius: 10px;
+      padding: 1rem 2rem;
+      border-radius: 8px;
       color: white;
-      font-weight: 600;
-      font-size: 0.98rem;
+      font-weight: 700;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s;
       width: 100%;
+      font-family: 'Epilogue', sans-serif;
+      letter-spacing: 0.03em;
     }
-    .btn-send:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(108,99,255,0.4);
-    }
-    .btn-send:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
+    .btn-send:hover { background: #3d3d9e; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(42,42,114,0.25); }
+    .btn-send:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+    /* ── FOOTER ── */
     footer {
-      padding: 2rem 4rem;
+      padding: 2rem 5rem;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       color: var(--muted);
+      background: var(--surface);
     }
 
-    @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; text-align: center; padding: 4.5rem 1.5rem 2.5rem; }
-      .profile-frame { width: 200px; height: 240px; }
-      section { padding: 3.5rem 1.5rem; }
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 6rem 1.5rem 3rem;
+        text-align: center;
+      }
+      .hero::before { display: none; }
+      .hero-desc { margin: 0 auto 2rem; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .profile-wrapper { max-width: 260px; }
+      section { padding: 4rem 1.5rem; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      footer { flex-direction: column; gap: 0.8rem; text-align: center; padding: 1.5rem; }
     }
   </style>
 </head>
 <body>
-
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-follower" id="follower"></div>
 
   <nav>
     <a href="#" class="nav-logo">dev<span>.</span>folio</a>
@@ -444,361 +569,326 @@
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- ── HERO ── -->
   <section class="hero" id="home">
     <div class="hero-text">
-      <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(108,99,255,0.1); border:1px solid rgba(108,99,255,0.3); color:var(--accent); padding:0.35rem 1rem; border-radius:999px; font-size:0.8rem; font-weight:500; margin-bottom:1.2rem;">
-        Available for work
-      </div>
+      <div class="hero-badge">Available for work</div>
       <h1>
-        <span class="line">Full Stack</span>
-        <span class="line accent-text">Developer</span>
+        Full Stack<br>
+        <em>Developer.</em>
       </h1>
       <p class="hero-desc">
-        I build modern, scalable web applications using Laravel, Next.js, React, TypeScript, Node.js, and Python. 
+        I build modern, scalable web applications using Laravel, Next.js, React, TypeScript, Node.js, and Python.
         Passionate about clean code, real-time features, and AI-powered solutions.
       </p>
-      <div>
+      <div class="hero-actions">
         <a href="#projects" class="btn-primary">View My Work ↓</a>
         <a href="#contact" class="btn-outline">Let's Talk →</a>
       </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Projects Shipped</div>
+        </div>
+        <div>
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Tech Stacks</div>
+        </div>
+        <div>
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Years Building</div>
+        </div>
+      </div>
     </div>
 
-    <div>
-      <div class="profile-frame">
-        <img class="profile-img" src="image/my-pic.png" alt="Jude Burnea">
+    <div class="hero-visual">
+      <div class="profile-wrapper">
+        <img src="image/my-pic.png" alt="Jude Burnea">
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- ── SKILLS ── -->
   <section id="skills">
     <p class="section-label">What I Work With</p>
     <h2 class="section-title">Technical Skills</h2>
     <p class="section-sub">Modern full-stack technologies for building fast and intelligent applications.</p>
 
     <div class="skills-grid">
-      <div class="skill-card">
-        <div class="skill-icon" style="background:rgba(255,70,70,0.1);">🔴</div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#fff0f0;">🔴</div>
         <div class="skill-name">Laravel + PHP</div>
         <div class="skill-desc">Robust backend, APIs, authentication & business logic.</div>
       </div>
-      <div class="skill-card">
-        <div class="skill-icon" style="background:rgba(97,218,251,0.1);">⚛️</div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#e8f6ff;">⚛️</div>
         <div class="skill-name">React + TypeScript</div>
         <div class="skill-desc">Modern, type-safe frontend with Next.js.</div>
       </div>
-      <div class="skill-card">
-        <div class="skill-icon" style="background:rgba(104,211,110,0.1);">🟢</div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#f0fff4;">🟢</div>
         <div class="skill-name">Node.js + JavaScript</div>
         <div class="skill-desc">Server-side JS, APIs & real-time apps.</div>
       </div>
-      <div class="skill-card">
-        <div class="skill-icon" style="background:rgba(67,233,123,0.1);">🐍</div>
-        <div class="skill-name">Python Chatbot</div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#f0fff4;">🐍</div>
+        <div class="skill-name">Python + AI</div>
         <div class="skill-desc">AI-powered chatbots with conversation history using Groq.</div>
       </div>
-      <div class="skill-card">
-        <div class="skill-icon" style="background:rgba(119,123,255,0.1);">📋</div>
-        <div class="skill-name">Taskflow (TypeScript)</div>
-        <div class="skill-desc">Next.js 15 full-stack app with Prisma, Supabase & Groq AI.</div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#f0efff;">📋</div>
+        <div class="skill-name">Supabase + Prisma</div>
+        <div class="skill-desc">Next.js 15 full-stack apps with real-time data and Groq AI.</div>
       </div>
-      <div class="skill-card">
-        <div class="skill-icon" style="background:rgba(247,223,30,0.1);">🗄️</div>
-        <div class="skill-name">MySQL & WordPress</div>
-        <div class="skill-desc">Database design, optimization & CMS customization.</div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#fffbea;">🗄️</div>
+        <div class="skill-name">MySQL & Databases</div>
+        <div class="skill-desc">Database design, optimization & query performance tuning.</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#fff0f5;">🚀</div>
+        <div class="skill-name">Deployment</div>
+        <div class="skill-desc">Vercel, Render, Docker, Railway, environment & API key management.</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon" style="background:#e8f6ff;">🔗</div>
+        <div class="skill-name">APIs & Webhooks</div>
+        <div class="skill-desc">Payment gateways, third-party integrations, and webhook verification.</div>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
+  <!-- ── PROJECTS ── -->
+  <section id="projects" style="background: var(--bg);">
     <p class="section-label">What I've Built</p>
     <h2 class="section-title">Featured Projects</h2>
-    <p class="section-sub">Recent work showcasing modern development and AI integration.</p>
+    <p class="section-sub">Real-world applications spanning SaaS, e-commerce, AI, and institutional systems.</p>
 
     <div class="projects-grid">
-      <div class="project-card">
+
+      <!-- Taskflow -->
+      <div class="project-card fade-up">
         <div class="project-thumb" style="background: linear-gradient(135deg, #1e2937, #334155);">📋</div>
         <div class="project-body">
           <div class="project-tags">
             <span class="tag">Next.js 15</span>
             <span class="tag">TypeScript</span>
             <span class="tag">Supabase</span>
+            <span class="tag">Groq AI</span>
           </div>
-          <div class="project-title">Taskflow</div>
-          <div class="project-desc">
-            Full-stack Kanban board with drag & drop, real-time updates, Clerk auth, PostgreSQL, 
-            AI task suggestions (Groq), and analytics dashboard.
+          <div class="project-title">Taskflow — SaaS Kanban Board</div>
+          <div class="project-desc collapsed">
+            Full-stack Kanban board with drag & drop, real-time updates, Clerk auth, PostgreSQL,
+            AI task suggestions powered by Groq, and an analytics dashboard.
+            Deployed on Vercel with Neon PostgreSQL.
           </div>
-          <div style="display:flex; gap:0.8rem;">
-            <a href="https://github.com/Burnzkie/task-flow" class="project-link">GitHub</a>
-          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Burnzkie/task-flow" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Burnzkie/task-flow</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
         </div>
       </div>
 
-      <div class="project-card">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0f172a, #1e2937);">🤖</div>
+      <!-- Shad AI -->
+      <div class="project-card fade-up">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0f172a, #1e3a5f);">🤖</div>
         <div class="project-body">
           <div class="project-tags">
-            <span class="tag">Python</span>
-            <span class="tag">FastAPI</span>
-            <span class="tag">Groq</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Supabase</span>
+            <span class="tag">Groq AI</span>
           </div>
-          <div class="project-title">AI Chatbot with History</div>
-          <div class="project-desc">
-            Intelligent chatbot with persistent conversation history and smart context awareness.
+          <div class="project-title">Shad AI — Intelligent Chatbot Platform</div>
+          <div class="project-desc collapsed">
+            Full-stack AI chatbot platform that enables users to engage in intelligent conversations through a modern and responsive web interface.
+            <br><br>
+            <strong>Core Features:</strong>
+            <ul>
+              <li>AI language model integration via Groq API</li>
+              <li>Persistent chat history management with Supabase</li>
+              <li>User-friendly sidebar navigation</li>
+              <li>Real-time messaging interface</li>
+              <li>Context-aware conversations</li>
+              <li>Scalable backend architecture built with Node.js</li>
+              <li>Designed for future multi-model AI & document processing support</li>
+            </ul>
           </div>
-          <div style="display:flex; gap:0.8rem;">
-            <a href="https://github.com/Burnzkie/chatbot" class="project-link">GitHub</a>
-          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Burnzkie/shad-ai" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Burnzkie/shad-ai</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
         </div>
       </div>
 
-      <!-- SCHOOL PAYMENT -->
-  <div class="project-card">
-
-    <div class="project-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">
-      💸
-    </div>
-
-    <div class="project-body">
-
-      <div class="project-tags">
-        <span class="tag">Laravel</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">Payment Gateway</span>
+      <!-- School Payment -->
+      <div class="project-card fade-up">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">💸</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Laravel</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Payment Gateway</span>
+          </div>
+          <div class="project-title">School Online Payment Management System</div>
+          <div class="project-desc collapsed">
+            Full-stack web-based school payment system designed to automate financial transactions between schools, students, and parents.
+            Supports five user roles: <strong>Administrator</strong>, <strong>Treasurer</strong>, <strong>Cashier</strong>, <strong>Student</strong>, and <strong>Parent</strong>.
+            <br><br>
+            <strong>Core Features:</strong>
+            <ul>
+              <li>Multi-role authentication system</li>
+              <li>Online payment gateway integration (GCash/Maya)</li>
+              <li>Student fee management & clearance approval</li>
+              <li>Revenue and transaction analytics</li>
+              <li>Parent-to-student account linking</li>
+              <li>Deployed on Render with Clever Cloud MySQL</li>
+            </ul>
+          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Burnzkie/school-online-payment" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Burnzkie/school-online-payment</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
+        </div>
       </div>
 
-      <div class="project-title">
-        School Online Payment Management System
+      <!-- JDBShop -->
+      <div class="project-card fade-up">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0d1b2a, #1b3a5c);">🛒</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">E-Commerce</span>
+          </div>
+          <div class="project-title">JDBShop — E-Commerce Platform</div>
+          <div class="project-desc collapsed">
+            Complete e-commerce platform with role-based access for <strong>Administrators</strong>, <strong>Staff</strong>, and <strong>Customers</strong>.
+            <br><br>
+            <strong>Core Features:</strong>
+            <ul>
+              <li>Online payment (PayMongo GCash/Maya) & COD</li>
+              <li>Real-time order tracking & delivery management</li>
+              <li>Dynamic shipping fee calculation via PSGC API</li>
+              <li>Refund and cancellation management</li>
+              <li>Monthly sales analytics dashboard</li>
+              <li>Product inventory CRUD operations</li>
+            </ul>
+          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Burnzkie/jdb-online-store" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Burnzkie/jdb-online-store</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
+        </div>
       </div>
-
-      <div class="project-desc collapsed">
-
-        Developed a full-stack web-based school payment management system
-        designed to simplify and automate financial transactions between
-        schools, students, and parents.
-
-        <br><br>
-
-        The platform supports five user roles:
-        <strong>Administrator</strong>,
-        <strong>Treasurer</strong>,
-        <strong>Cashier</strong>,
-        <strong>Student</strong>, and
-        <strong>Parent</strong>, each with dedicated dashboards,
-        permissions, and financial management tools.
-
-        <br><br>
-
-        Parents can securely link accounts to their students and pay fees
-        online through an integrated payment gateway.
-
-        Administrators can:
-
-        <ul>
-          <li>Manage students and user records</li>
-          <li>Create and manage school fees</li>
-          <li>Approve financial clearances</li>
-          <li>Monitor monthly revenue analytics</li>
-          <li>Track all financial transactions</li>
-        </ul>
-
-        Treasurers and cashiers can process payments,
-        monitor transaction history, and manage financial operations.
-
-        <br><br>
-
-        <strong>Core Features:</strong>
-
-        <ul>
-          <li>Multi-role authentication system</li>
-          <li>Online payment gateway integration</li>
-          <li>Student fee management</li>
-          <li>Financial clearance approval</li>
-          <li>Revenue and transaction analytics</li>
-          <li>Parent-to-student account linking</li>
-          <li>Password recovery and secure authentication</li>
-          <li>Responsive dashboard interface</li>
-        </ul>
-
-      </div>
-
-      <button class="see-more-btn">
-        See More →
-      </button>
-
-      <div class="project-actions">
-        <a href="https://github.com/Burnzkie/school-online-payment" class="project-link">
-          GitHub
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-
-  <!-- JDBSHOP -->
-  <div class="project-card">
-
-    <div class="project-thumb" style="background: linear-gradient(135deg, #0d1b2a, #1b2838);">
-      🛒
-    </div>
-
-    <div class="project-body">
-
-      <div class="project-tags">
-        <span class="tag">PHP</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">JavaScript</span>
-        <span class="tag">E-Commerce</span>
-      </div>
-
-      <div class="project-title">
-        JDBShop – E-Commerce Platform
-      </div>
-
-      <div class="project-desc collapsed">
-
-        Developed a complete e-commerce platform with role-based access
-        management for <strong>Administrators</strong>,
-        <strong>Staff</strong>, and
-        <strong>Customers</strong>.
-
-        <br><br>
-
-        Customers can browse products, place orders, pay online or via
-        cash-on-delivery, track deliveries in real time, and request
-        item cancellations or refunds directly through the platform.
-
-        <br><br>
-
-        The platform also includes dynamic shipping fee computation based
-        on customer location to improve delivery cost accuracy.
-
-        <br><br>
-
-        Staff users can manage products through complete CRUD operations,
-        while administrators can monitor sales performance and analytics.
-
-        <br><br>
-
-        <strong>Admin Dashboard Features:</strong>
-
-        <ul>
-          <li>Monthly sales analytics</li>
-          <li>Top-selling product insights</li>
-          <li>Order and transaction monitoring</li>
-          <li>Inventory management</li>
-        </ul>
-
-        <strong>Core Features:</strong>
-
-        <ul>
-          <li>Multi-role authentication system</li>
-          <li>Online payment and COD support</li>
-          <li>Real-time order tracking</li>
-          <li>Dynamic shipping fee calculation</li>
-          <li>Refund and cancellation management</li>
-          <li>Product inventory CRUD operations</li>
-          <li>Sales reporting dashboard</li>
-          <li>Responsive e-commerce interface</li>
-        </ul>
-
-      </div>
-
-      <button class="see-more-btn">
-        See More →
-      </button>
-
-      <div class="project-actions">
-        <a href="https://github.com/Burnzkie/jdb-online-store" class="project-link">
-          GitHub
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
-
 
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ── CONTACT ── -->
   <section id="contact">
     <p class="section-label">Get In Touch</p>
     <h2 class="section-title">Let's Work Together</h2>
     <p class="section-sub">Have a project in mind? I'd love to hear from you.</p>
 
-    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-      <!-- Web3Forms Access Key -->
-      <input type="hidden" name="access_key" value="26746fab-cfa2-4409-bbce-3110fa1d3380">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <h3>Open to remote opportunities worldwide.</h3>
+        <p>I'm currently available for freelance and remote full-stack development work. Whether you need a SaaS tool, internal system, or e-commerce platform — let's build it.</p>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-text">Philippines (PHT, UTC+8)</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-text">judeburnea20@gmail.com</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💼</div>
+          <div class="contact-item-text">Available for U.S. Eastern business hours</div>
+        </div>
+      </div>
 
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email Address" required>
-      <textarea name="message" placeholder="Tell me about your project or idea..." rows="6" required></textarea>
-
-      <button type="submit" class="btn-send" id="submitBtn">
-        Send Message ✉️
-      </button>
-    </form>
+      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="26746fab-cfa2-4409-bbce-3110fa1d3380">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email Address" required>
+        <textarea name="message" placeholder="Tell me about your project or idea..." rows="5" required></textarea>
+        <button type="submit" class="btn-send" id="submitBtn">Send Message ✉️</button>
+      </form>
+    </div>
   </section>
 
   <footer>
-    <p>© 2026 — Built with 💜 by Jude Burnea</p>
+    <p>© 2026 — Built by Jude Burnea</p>
     <p>Laravel · Next.js · TypeScript · Node.js · Python · MySQL</p>
   </footer>
 
   <script>
-    // Cursor Effect
-    const cursor = document.getElementById('cursor');
-    const follower = document.getElementById('follower');
-    let mx = 0, my = 0;
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
 
-    document.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      cursor.style.transform = `translate(${mx-5}px, ${my-5}px)`;
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // See more / less
+    document.querySelectorAll('.see-more-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const desc = btn.previousElementSibling;
+        desc.classList.toggle('collapsed');
+        btn.textContent = desc.classList.contains('collapsed') ? 'See more →' : 'See less ↑';
+      });
     });
 
-    function animateFollower() {
-      follower.style.transform = `translate(${mx-16}px, ${my-16}px)`;
-      requestAnimationFrame(animateFollower);
-    }
-    animateFollower();
-
-    // Form Submission Feedback
+    // Form submit feedback
     const form = document.querySelector('form');
     const submitBtn = document.getElementById('submitBtn');
-
-    form.addEventListener('submit', function() {
-      submitBtn.textContent = "Sending...";
+    form.addEventListener('submit', () => {
+      submitBtn.textContent = 'Sending...';
       submitBtn.disabled = true;
     });
-    const seeMoreButtons = document.querySelectorAll('.see-more-btn');
-
-seeMoreButtons.forEach(button => {
-
-  button.addEventListener('click', () => {
-
-    const description = button.previousElementSibling;
-
-    description.classList.toggle('collapsed');
-
-    if (description.classList.contains('collapsed')) {
-      button.innerHTML = 'See More →';
-    } else {
-      button.innerHTML = 'See Less ↑';
-    }
-
-  });
-
-});
-
   </script>
 </body>
 </html>
