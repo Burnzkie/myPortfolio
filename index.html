@@ -538,6 +538,75 @@
       transform: translateY(0);
     }
 
+    /* ── AMBIENT LIFE: nav, blobs, spotlight, entrance ── */
+    nav {
+      transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    nav.scrolled {
+      padding-top: 0.7rem;
+      padding-bottom: 0.7rem;
+      box-shadow: 0 6px 24px rgba(42,42,114,0.08);
+    }
+
+    .ambient-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.32;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+      animation: floatBlob 16s ease-in-out infinite;
+    }
+    .blob-1 { width: 320px; height: 320px; background: var(--accent); top: -60px; right: 6%; }
+    .blob-2 { width: 240px; height: 240px; background: var(--accent2); bottom: -40px; right: 26%; animation-duration: 12s; animation-delay: -5s; }
+    @keyframes floatBlob {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-30px, 24px) scale(1.08); }
+      66% { transform: translate(22px, -18px) scale(0.94); }
+    }
+
+    .hero-spotlight {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 30%), rgba(42,42,114,0.08), transparent 60%);
+      transition: background 0.15s ease;
+    }
+
+    .hero-badge, .hero h1, .hero-desc, .hero-actions, .hero-stats, .hero-visual {
+      opacity: 0;
+      animation: enterUp 0.8s ease forwards;
+    }
+    .hero-badge   { animation-delay: 0.05s; }
+    .hero h1      { animation-delay: 0.15s; }
+    .hero-desc    { animation-delay: 0.28s; }
+    .hero-actions { animation-delay: 0.4s; }
+    .hero-stats   { animation-delay: 0.52s; }
+    .hero-visual  { animation-delay: 0.3s; }
+    @keyframes enterUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .project-thumb { transition: transform 0.35s ease; }
+    .project-card:hover .project-thumb { transform: scale(1.08) rotate(-2deg); }
+
+    .project-card { transform-style: preserve-3d; transition: transform 0.25s ease, box-shadow 0.3s ease; }
+
+    .skill-icon { transition: transform 0.3s ease; }
+    .skill-card:hover .skill-icon { transform: scale(1.12) rotate(-6deg); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-blob { animation: none; }
+      .hero-badge, .hero h1, .hero-desc, .hero-actions, .hero-stats, .hero-visual {
+        animation: none; opacity: 1;
+      }
+      .fade-up { transition: none; opacity: 1; transform: none; }
+      .project-card:hover .project-thumb, .skill-card:hover .skill-icon { transform: none; }
+    }
+
     /* ── MOBILE ── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
@@ -571,6 +640,10 @@
 
   <!-- ── HERO ── -->
   <section class="hero" id="home">
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="hero-spotlight" id="heroSpotlight"></div>
+
     <div class="hero-text">
       <div class="hero-badge">Available for work</div>
       <h1>
@@ -587,15 +660,15 @@
       </div>
       <div class="hero-stats">
         <div>
-          <div class="stat-num">4+</div>
+          <div class="stat-num" data-count="8">0</div>
           <div class="stat-label">Projects Shipped</div>
         </div>
         <div>
-          <div class="stat-num">5+</div>
+          <div class="stat-num" data-count="5">0</div>
           <div class="stat-label">Tech Stacks</div>
         </div>
         <div>
-          <div class="stat-num">2+</div>
+          <div class="stat-num" data-count="2">0</div>
           <div class="stat-label">Years Building</div>
         </div>
       </div>
@@ -819,6 +892,168 @@
         </div>
       </div>
 
+      <!-- PAC-AIMS -->
+      <div class="project-card fade-up">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #1a2a4a, #2a2a72);">🏫</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Laravel</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Python</span>
+            <span class="tag">Multi-Role</span>
+          </div>
+          <div class="project-title">PAC-AIMS — School Management System</div>
+          <div class="project-desc collapsed">
+            Collaborative Laravel school management system built for Philippine Advent College, paired with a Python analytics service.
+            Handles multi-role workflows across Admin, Cashier, Treasurer, Student, and Parent portals.
+            <br><br>
+            <strong>Core Features:</strong>
+            <ul>
+              <li>Billing and carryover balance logic across semesters</li>
+              <li>Online payment submission/approval workflow (GCash/Maya proof review)</li>
+              <li>Role-based middleware and access control</li>
+              <li>FullCalendar event system with multi-image uploads</li>
+              <li>Dark mode with database-persisted preference</li>
+              <li>Deployed on Render with Clever Cloud MySQL</li>
+            </ul>
+          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Jetro05/PAC-AIMS" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Jetro05/PAC-AIMS</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- FSL Sign Language Recognition -->
+      <div class="project-card fade-up">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0d3b3e, #128a8f);">🤟</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">React</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">MediaPipe</span>
+            <span class="tag">Supabase</span>
+          </div>
+          <div class="project-title">Filipino Sign Language Recognition</div>
+          <div class="project-desc collapsed">
+            Full-stack Filipino Sign Language (FSL) recognition web app combining real-time gesture tracking with machine learning,
+            born from a long-standing thesis interest in sign language recognition.
+            <br><br>
+            <strong>Core Features:</strong>
+            <ul>
+              <li>MediaPipe Holistic landmark extraction with DTW-based gesture matching</li>
+              <li>7-phase MobileNetV2 transfer-learning pipeline for static hand-shape classification</li>
+              <li>Google OAuth with student/admin role gating via Supabase Row-Level Security</li>
+              <li>Express/Prisma backend on Supabase PostgreSQL</li>
+              <li>Web Speech API integration for speech-to-sign</li>
+              <li>Frontend on Vercel, backend on Render</li>
+            </ul>
+          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Burnzkie/sign-language" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Burnzkie/sign-language</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- JobPilot AI -->
+      <div class="project-card fade-up">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #1e1b3a, #4c3a8f);">🧭</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">React</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Groq AI</span>
+          </div>
+          <div class="project-title">JobPilot AI — Job-Hunting Assistant</div>
+          <div class="project-desc collapsed">
+            AI-assisted job-hunting app with a FastAPI/SQLAlchemy backend and a React/TypeScript/TailwindCSS frontend,
+            built to streamline the search-to-apply pipeline.
+            <br><br>
+            <strong>Core Features:</strong>
+            <ul>
+              <li>LLM-powered cover letter generation via Groq</li>
+              <li>Dashboard statistics computed from real database aggregates</li>
+              <li>AI-driven job ranking and recommendation engine</li>
+              <li>PostgreSQL persistence via SQLAlchemy ORM</li>
+              <li>Type-safe React frontend styled with TailwindCSS</li>
+            </ul>
+          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Burnzkie/jobpilot-ai" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Burnzkie/jobpilot-ai</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- SOMS -->
+      <div class="project-card fade-up">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #241738, #3a2a5c);">🗳️</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Laravel</span>
+            <span class="tag">Flutter</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">E-Voting</span>
+          </div>
+          <div class="project-title">SOMS — Student Organization Management System</div>
+          <div class="project-desc collapsed">
+            Capstone system for Philippine Advent College's Supreme Student Government, built with a Laravel Blade web app
+            and a companion Flutter mobile app sharing a MySQL backend.
+            <br><br>
+            <strong>Core Features:</strong>
+            <ul>
+              <li>Electronic voting system as the primary capstone feature</li>
+              <li>Full UI redesign across Officer, Student, and Admin roles</li>
+              <li>Dashboard, Events, Calendar, Fines, Announcements, Members, and Reports modules</li>
+              <li>Event image uploads stored on Cloudflare R2</li>
+              <li>Unified design system across web and mobile clients</li>
+            </ul>
+          </div>
+          <button class="see-more-btn">See more →</button>
+          <a href="https://github.com/Burnzkie/SOMS" target="_blank" class="github-card">
+            <div class="github-card-left">
+              <div class="github-icon">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </div>
+              <div>
+                <div class="github-label">View on GitHub</div>
+                <div class="github-sub">Burnzkie/SOMS</div>
+              </div>
+            </div>
+            <div class="github-arrow">→</div>
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -862,6 +1097,9 @@
   </footer>
 
   <script>
+    // Respect users who've asked for reduced motion — skip the decorative JS animations for them
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     // Scroll fade-in
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -872,6 +1110,63 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Nav: add a "scrolled" state once the page moves, for a tighter/shadowed bar
+    const navEl = document.querySelector('nav');
+    const updateNavState = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
+    updateNavState();
+    window.addEventListener('scroll', updateNavState, { passive: true });
+
+    // Hero spotlight: a soft glow that follows the cursor within the hero section
+    if (!prefersReducedMotion) {
+      const heroSection = document.getElementById('home');
+      const spotlight = document.getElementById('heroSpotlight');
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        spotlight.style.setProperty('--mx', `${x}%`);
+        spotlight.style.setProperty('--my', `${y}%`);
+      });
+    }
+
+    // Hero stats: count up from 0 to their target once they scroll into view
+    const statEls = document.querySelectorAll('.stat-num[data-count]');
+    const animateCount = (el) => {
+      const target = parseInt(el.dataset.count, 10);
+      if (prefersReducedMotion) { el.textContent = `${target}+`; return; }
+      const duration = 900;
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        el.textContent = `${Math.round(target * eased)}+`;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statEls.forEach(el => statsObserver.observe(el));
+
+    // Project cards: a light 3D tilt that follows the cursor, purely a hover-time effect
+    if (!prefersReducedMotion) {
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width - 0.5;
+          const py = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `perspective(700px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 5).toFixed(2)}deg) translateY(-6px)`;
+        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      });
+    }
 
     // See more / less
     document.querySelectorAll('.see-more-btn').forEach(btn => {
