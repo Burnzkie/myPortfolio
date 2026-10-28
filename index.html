@@ -4,1185 +4,526 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jude Burnea — Full Stack Developer</title>
+  <title>Jude Burnea — Full-Stack Web Developer</title>
+  <meta name="description" content="Jude Burnea, full-stack web developer (Laravel, React, TypeScript, Node.js, Python). Projects: SOMS, FSL Recognition, JobPilot AI, CaterEase.">
   <link rel="icon" href="image/P_icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Epilogue:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600&display=swap" rel="stylesheet">
 
   <style>
+    /* ── Design tokens: one place to tweak the whole theme ── */
     :root {
-      --bg: #f7f5f2;
-      --bg2: #f0ede8;
-      --surface: #ffffff;
-      --border: #e5e0d8;
-      --accent: #2a2a72;
-      --accent2: #ff4d6d;
-      --text: #1a1a2e;
-      --muted: #7a7a8c;
-      --tag-bg: #ece9ff;
-      --tag-color: #2a2a72;
-      --card-shadow: 0 2px 20px rgba(42,42,114,0.07);
+      --bg: #050a22;
+      --bg-soft: #0a1030;
+      --card: #0b1236;
+      --card-hover: #101947;
+      --border: rgba(110, 118, 255, 0.24);
+      --border-strong: rgba(139, 112, 255, 0.6);
+      --text: #f4f6ff;
+      --muted: #a4abd1;
+      --blue: #4f6bff;
+      --violet: #8b5cf6;
+      --lilac: #b388ff;
+      --gradient: linear-gradient(90deg, #4f8bff, #8b5cf6 60%, #c084fc);
+      --gradient-btn: linear-gradient(90deg, #5b6cff, #a06bff);
+      --radius: 16px;
+      --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --script: 'Caveat', cursive;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
     body {
-      background: var(--bg);
+      font-family: var(--font);
+      background:
+        radial-gradient(900px 520px at 90% -5%, rgba(79, 107, 255, 0.2), transparent 60%),
+        radial-gradient(600px 500px at -8% 18%, rgba(139, 92, 246, 0.16), transparent 60%),
+        var(--bg);
       color: var(--text);
-      font-family: 'Epilogue', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.1rem 5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(247,245,242,0.92);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      color: var(--text);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-    .nav-logo span { color: var(--accent2); }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      margin-left: 2.2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      align-items: center;
-      gap: 4rem;
-      padding: 8rem 5rem 4rem;
-      position: relative;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 50%;
-      height: 100%;
-      background: var(--bg2);
-      z-index: 0;
-    }
-
-    .hero-text { position: relative; z-index: 1; }
-    .hero-visual { position: relative; z-index: 1; }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #e8f5e9;
-      color: #2e7d32;
-      padding: 0.4rem 1rem;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      margin-bottom: 1.6rem;
-      letter-spacing: 0.03em;
-    }
-    .hero-badge::before {
-      content: '';
-      width: 7px; height: 7px;
-      background: #43a047;
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
-    }
-
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3.2rem, 6vw, 5rem);
-      font-weight: 800;
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.4rem;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent2);
-    }
-
-    .hero-desc {
-      color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.8;
-      max-width: 480px;
-      margin-bottom: 2.2rem;
-      font-weight: 400;
-    }
-
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-      padding: 0.9rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.88rem;
-      letter-spacing: 0.03em;
-      transition: all 0.25s;
-    }
-    .btn-primary:hover { background: #3d3d9e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(42,42,114,0.25); }
-
-    .btn-outline {
-      border: 1.5px solid var(--border);
-      color: var(--text);
-      padding: 0.9rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.88rem;
-      transition: all 0.25s;
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* Profile visual */
-    .profile-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 360px;
-      margin: 0 auto;
-    }
-    .profile-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 18px; left: 18px;
-      right: -18px; bottom: -18px;
-      border: 2px solid var(--accent);
-      border-radius: 16px;
-      z-index: 0;
-      opacity: 0.25;
-    }
-    .profile-wrapper img {
-      width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      border-radius: 14px;
-      position: relative;
-      z-index: 1;
-      box-shadow: var(--card-shadow);
-    }
-
-    /* Stats strip */
-    .hero-stats {
-      display: flex;
-      gap: 2.5rem;
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.9rem;
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 0.25rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 6rem 5rem; }
-    .section-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      font-weight: 700;
-      margin-bottom: 0.7rem;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 800;
-      margin-bottom: 0.9rem;
-      letter-spacing: -0.02em;
-    }
-    .section-sub {
-      color: var(--muted);
-      max-width: 500px;
-      line-height: 1.7;
-      margin-bottom: 3.5rem;
-    }
-
-    /* ── SKILLS ── */
-    #skills { background: var(--bg2); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.2rem;
-    }
-    .skill-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
-      box-shadow: var(--card-shadow);
-    }
-    .skill-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(42,42,114,0.12);
-      border-color: rgba(42,42,114,0.2);
-    }
-    .skill-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      margin-bottom: 0.9rem;
-    }
-    .skill-name {
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 0.4rem;
-      color: var(--text);
-    }
-    .skill-desc {
-      color: var(--muted);
-      font-size: 0.85rem;
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ── PROJECTS ── */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 1.8rem;
+    a { color: inherit; text-decoration: none; }
+    svg.icon { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    :focus-visible { outline: 2px solid var(--lilac); outline-offset: 3px; border-radius: 6px; }
+
+    .container { width: min(1120px, 100% - 3rem); margin-inline: auto; }
+    section { padding: 4rem 0; }
+    .section-line { border-top: 1px solid rgba(110, 118, 255, 0.14); }
+
+    /* ── Nav ── */
+    nav { position: sticky; top: 0; z-index: 50; background: rgba(5, 10, 34, 0.8); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(110, 118, 255, 0.14); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-logo { display: flex; align-items: center; gap: 0.7rem; font-weight: 700; font-size: 1.05rem; }
+    .nav-logo-mark { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(135deg, #4f6bff, #8b5cf6); font-weight: 800; font-size: 0.95rem; }
+    .nav-right { display: flex; align-items: center; gap: 2.2rem; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { position: relative; font-size: 0.88rem; font-weight: 500; padding: 1.35rem 0; color: #d9ddff; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-links a.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--gradient); border-radius: 2px; }
+    .btn-resume { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.2rem; border: 1.5px solid var(--border-strong); border-radius: 10px; font-size: 0.82rem; font-weight: 500; transition: background 0.2s; }
+    .btn-resume:hover { background: rgba(139, 92, 246, 0.15); }
+
+    /* ── Hero ── */
+    .hero { padding: 3rem 0 2.2rem; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem; align-items: center; }
+    .badge { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.35rem 0.95rem; border-radius: 8px; background: rgba(79, 107, 255, 0.08); border: 1px solid var(--border); color: #dfe3ff; font-size: 0.74rem; }
+    .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+    .badge span { opacity: 0.5; }
+    h1 { font-size: clamp(2.8rem, 6.2vw, 4.4rem); line-height: 1.05; font-weight: 800; letter-spacing: -0.03em; margin: 1rem 0 0.2rem; }
+    .grad { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .role { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; letter-spacing: -0.01em; margin-bottom: 1.3rem; }
+    .contact-lines { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; font-size: 0.85rem; color: #e4e7ff; margin-bottom: 1.4rem; }
+    .contact-lines .row { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; width: 100%; }
+    .contact-lines a, .contact-lines span.item { display: inline-flex; align-items: center; gap: 0.55rem; }
+    .contact-lines a:hover { color: var(--lilac); }
+    .hero-desc { max-width: 470px; color: #dfe3ff; font-size: 0.95rem; margin-bottom: 1.8rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.85rem 1.6rem; border-radius: 10px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, background 0.2s; }
+    .btn-primary { background: var(--gradient-btn); color: #fff; border: none; box-shadow: 0 8px 26px rgba(99, 102, 255, 0.4); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(99, 102, 255, 0.55); }
+    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); }
+    .btn-outline:hover { background: rgba(139, 92, 246, 0.12); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-bottom: 2.2rem; }
+
+    .stats { display: inline-grid; grid-auto-flow: column; align-items: center; gap: 1.5rem; padding: 1rem 1.6rem; border-radius: 16px; background: rgba(11, 18, 54, 0.7); border: 1px solid var(--border); }
+    .stat { display: flex; align-items: center; gap: 0.8rem; }
+    .stat + .stat { padding-left: 1.5rem; border-left: 1px solid var(--border); }
+    .stat-icon { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: rgba(79, 107, 255, 0.14); color: var(--lilac); }
+    .stat-num { font-weight: 700; font-size: 1rem; line-height: 1.2; }
+    .stat-label { font-size: 0.7rem; color: var(--muted); }
+
+    /* Hero visual: tilted photo frame, glass panels, code card, script tagline */
+    .hero-visual { position: relative; min-height: 470px; }
+    .glass { position: absolute; border: 1.5px solid rgba(110, 130, 255, 0.35); border-radius: 22px; background: rgba(79, 107, 255, 0.07); backdrop-filter: blur(4px); }
+    .glass-a { width: 34%; height: 28%; left: -4%; top: 42%; transform: skewY(-6deg); }
+    .glass-b { width: 38%; height: 26%; right: -2%; top: 36%; transform: skewY(6deg); }
+    .photo-frame { position: absolute; left: 10%; top: 9%; width: 68%; z-index: 1; aspect-ratio: 1 / 1.1; padding: 3px; border-radius: 30px; transform: perspective(900px) rotateY(-10deg) rotateZ(2deg); background: linear-gradient(140deg, #6d8bff, #8b5cf6 55%, #4f6bff); box-shadow: 0 0 70px rgba(79, 107, 255, 0.5); }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 27px; display: block; background: var(--card); }
+    .code-card { position: absolute; right: -2%; bottom: 0; width: 80%; z-index: 2; padding: 1rem 1.2rem; border-radius: 18px; border: 1.5px solid rgba(110, 130, 255, 0.4); background: rgba(10, 16, 48, 0.82); backdrop-filter: blur(8px); font-family: var(--mono); font-size: 0.72rem; line-height: 1.6; color: #8fb4ff; transform: rotate(-4deg); }
+    .code-card .k { color: #c4a5ff; } .code-card .s { color: #7ee0b0; }
+    .square { position: absolute; border-radius: 6px; background: #4f6bff; box-shadow: 0 0 20px rgba(79, 107, 255, 0.8); }
+    .sq-a { width: 18px; height: 18px; left: 6%; top: 12%; }
+    .sq-b { width: 16px; height: 16px; right: 0; top: 58%; }
+    .script { position: absolute; right: 0; top: 0; z-index: 3; font-family: var(--script); font-size: 1.5rem; line-height: 1.1; color: #b8c4ff; transform: rotate(-8deg); text-align: left; }
+    .script::after { content: ''; display: block; width: 90px; height: 2px; margin-top: 0.4rem; background: var(--gradient); border-radius: 2px; transform: rotate(-4deg); }
+
+    /* ── Section headers ── */
+    .section-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: 1.8rem; }
+    .eyebrow { color: var(--blue); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    h2 { font-size: clamp(1.8rem, 3.2vw, 2.3rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 0.5rem; }
+    .section-sub { color: #aeb6ff; max-width: 440px; font-size: 0.9rem; }
+    .head-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--blue); font-size: 0.82rem; font-weight: 500; transition: gap 0.2s; white-space: nowrap; }
+    .head-link:hover { gap: 0.8rem; }
+
+    /* ── Skills (grouped as on the resume) ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .skill-card { display: flex; gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; transition: border-color 0.2s, background 0.2s; }
+    .skill-card:hover { border-color: var(--border-strong); background: var(--card-hover); }
+    .skill-icon { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; background: rgba(79, 107, 255, 0.14); color: #7aa2ff; }
+    .skill-icon svg { width: 24px; height: 24px; }
+    .skill-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .skill-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── Projects ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+    .project-card { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem; display: flex; flex-direction: column; transition: border-color 0.2s, transform 0.2s; overflow: hidden; }
+    .project-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+
+    /* CSS "screenshot": a dark app window with sidebar and content blocks */
+    .shot { position: relative; height: 150px; border-radius: 12px; overflow: hidden; background: var(--shot-bg, linear-gradient(135deg, #101a4d, #1a2a78)); }
+    .shot-window { position: absolute; left: 14%; right: 6%; top: 34px; bottom: -12px; border-radius: 10px 10px 0 0; background: rgba(6, 10, 34, 0.88); border: 1px solid rgba(140, 160, 255, 0.35); display: grid; grid-template-columns: 22% 1fr; gap: 6px; padding: 8px; }
+    .shot-side { border-radius: 5px; background: rgba(120, 140, 255, 0.12); }
+    .shot-main { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 18px 1fr; gap: 6px; }
+    .shot-main i { border-radius: 4px; background: rgba(120, 140, 255, 0.18); }
+    .shot-main i:nth-child(n+4) { grid-column: span 3; background: linear-gradient(90deg, var(--accent, #6d8bff), transparent); opacity: 0.55; }
+    .shot-chip { position: absolute; left: 10px; top: 10px; z-index: 2; display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.28rem 0.7rem; border-radius: 9px; font-weight: 700; font-size: 0.8rem; background: rgba(12, 18, 56, 0.88); border: 1px solid var(--border-strong); }
+    .shot-chip svg { width: 15px; height: 15px; color: var(--lilac); }
+
+    .project-body { padding: 0.9rem 0.35rem 0.3rem; display: flex; flex-direction: column; flex: 1; }
+    .project-title { display: flex; align-items: center; gap: 0.6rem; font-weight: 700; font-size: 0.95rem; line-height: 1.3; margin-bottom: 0.7rem; }
+    .title-icon { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; flex-shrink: 0; background: linear-gradient(135deg, #4f6bff, #8b5cf6); }
+    .title-icon svg { width: 14px; height: 14px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.8rem; }
+    .tag { padding: 0.18rem 0.65rem; border-radius: 999px; font-size: 0.66rem; background: rgba(79, 107, 255, 0.08); border: 1px solid var(--border); color: #d3d8ff; }
+    .project-desc { font-size: 0.76rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .project-link { margin-top: auto; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.76rem; font-weight: 500; color: #8aa4ff; transition: gap 0.2s, color 0.2s; }
+    .project-link:hover { gap: 0.8rem; color: #fff; }
+
+    /* Second row: wide CaterEase card + "more projects" card */
+    .projects-row2 { display: grid; grid-template-columns: 2.05fr 1fr; gap: 1.1rem; margin-top: 1.1rem; }
+    .project-wide { min-height: 215px; padding: 0; background: linear-gradient(100deg, rgba(25, 14, 8, 0.4), rgba(30, 18, 12, 0.88) 45%), radial-gradient(500px 260px at 15% 50%, #6b4a2c, #2a1a10 70%); border-color: rgba(214, 160, 99, 0.35); }
+    .wide-inner { display: grid; grid-template-columns: 1fr 1.05fr; gap: 1rem; padding: 1.2rem; height: 100%; align-items: center; }
+    .wide-shot { position: relative; height: 170px; }
+    .wide-shot .laptop { position: absolute; left: 0; top: 8px; width: 82%; height: 130px; border-radius: 8px; background: #17110d; border: 2px solid #3a2b20; padding: 8px; display: grid; grid-template-columns: 20% 1fr; gap: 6px; }
+    .wide-shot .laptop::after { content: ''; position: absolute; left: -6%; right: -6%; bottom: -10px; height: 8px; border-radius: 0 0 8px 8px; background: #3a2b20; }
+    .wide-shot .phone { position: absolute; right: 4%; top: 30px; width: 54px; height: 108px; border-radius: 10px; background: #17110d; border: 2px solid #3a2b20; }
+    .wide-shot .laptop i, .wide-shot .phone i { display: block; border-radius: 4px; background: rgba(214, 160, 99, 0.22); }
+    .wide-shot .phone i { margin: 8px; height: 22px; }
+    .wide-text .brand { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .wide-text .brand svg { width: 26px; height: 26px; color: #e8b26f; }
+    .wide-text .project-title { margin-bottom: 0.6rem; font-size: 1rem; }
+    .wide-text .tag { border-color: rgba(214, 160, 99, 0.35); background: rgba(214, 160, 99, 0.08); }
+    .wide-text .project-link { color: #f0b978; margin-top: 0.3rem; }
+
+    .more-card { justify-content: center; padding: 1.4rem; background: radial-gradient(300px 200px at 100% 100%, rgba(79, 107, 255, 0.25), transparent 70%), var(--card); }
+    .more-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .more-card p { font-size: 0.76rem; color: var(--muted); max-width: 190px; margin-bottom: 1rem; }
+    .more-gh { position: absolute; right: 1.4rem; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: #0a1030; border: 1.5px solid var(--border-strong); }
+    .more-gh svg { width: 24px; height: 24px; }
+
+    /* ── Contact ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 3rem; align-items: center; }
+    .contact-info > p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.3rem; }
+    .contact-item { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.75rem; font-size: 0.86rem; }
+    .contact-item .ico { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: rgba(79, 107, 255, 0.18); color: #7aa2ff; }
+    .contact-form { background: rgba(8, 13, 42, 0.8); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem; display: grid; gap: 0.75rem; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .field { position: relative; display: block; }
+    .field svg { position: absolute; left: 0.9rem; top: 0.9rem; color: #8aa4ff; width: 17px; height: 17px; }
+    .field input, .field textarea { width: 100%; padding: 0.8rem 1rem 0.8rem 2.6rem; font-family: inherit; font-size: 0.8rem; color: var(--text); background: rgba(12, 18, 56, 0.9); border: 1px solid var(--border); border-radius: 8px; transition: border-color 0.2s; }
+    .field textarea { min-height: 84px; resize: vertical; padding-left: 1rem; }
+    .field input::placeholder, .field textarea::placeholder { color: #8189b5; }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--lilac); }
+    .btn-send { justify-content: center; width: 100%; border: none; border-radius: 10px; color: #fff; background: var(--gradient-btn); box-shadow: 0 8px 24px rgba(99, 102, 255, 0.35); }
+    .btn-send:disabled { opacity: 0.65; cursor: wait; transform: none; }
+    .form-status { text-align: center; font-size: 0.76rem; color: var(--muted); min-height: 1.2em; }
+    .form-status.error { color: #fca5a5; }
+    .form-status.success { color: #6ee7b7; }
+    .hp { position: absolute; left: -9999px; }
+
+    /* ── Footer ── */
+    footer { border-top: 1px solid rgba(110, 118, 255, 0.14); padding: 1.3rem 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.72rem; color: var(--muted); }
+    .footer-mid { display: flex; gap: 0.8rem; }
+    .footer-social { display: flex; gap: 0.6rem; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; color: var(--text); background: rgba(79, 107, 255, 0.1); border: 1px solid var(--border); transition: border-color 0.2s, background 0.2s; }
+    .footer-social a:hover { border-color: var(--lilac); background: rgba(139, 92, 246, 0.2); }
+
+    /* ── Motion: one hero load-in; skipped for reduced-motion users ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-grid > * { animation: riseIn 0.7s ease both; }
+      .hero-grid > *:nth-child(2) { animation-delay: 0.12s; }
+      @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
     }
 
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: var(--card-shadow);
-      display: flex;
-      flex-direction: column;
+    /* ── Responsive ── */
+    @media (max-width: 1000px) {
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .projects-row2 { grid-template-columns: 1fr; }
     }
-    .project-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(42,42,114,0.13);
-    }
-
-    .project-thumb {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .project-thumb::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.08));
-    }
-
-    .project-body {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-    }
-
-    .project-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-bottom: 1rem;
-    }
-    .tag {
-      background: var(--tag-bg);
-      color: var(--tag-color);
-      padding: 0.3rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .project-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      color: var(--text);
-      line-height: 1.3;
-    }
-
-    .project-desc {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 0.88rem;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .project-desc.collapsed {
-      max-height: 100px;
-      overflow: hidden;
-    }
-    .project-desc.collapsed::after {
-      content: '';
-      position: absolute;
-      left: 0; bottom: 0;
-      width: 100%; height: 50px;
-      background: linear-gradient(to bottom, transparent, white);
-    }
-    .project-desc ul { margin-top: 0.8rem; padding-left: 1.2rem; }
-    .project-desc li { margin-bottom: 0.4rem; }
-
-    .see-more-btn {
-      margin-top: 0.75rem;
-      background: transparent;
-      border: none;
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 0.82rem;
-      cursor: pointer;
-      transition: 0.2s;
-      text-align: left;
-      padding: 0;
-    }
-    .see-more-btn:hover { opacity: 0.7; }
-
-    /* GitHub card link */
-    .github-card {
-      margin-top: auto;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-decoration: none;
-      transition: all 0.2s;
-      margin-top: 1.5rem;
-    }
-    .github-card:hover { opacity: 0.8; }
-    .github-card-left {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-    .github-icon {
-      width: 32px; height: 32px;
-      background: var(--text);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .github-icon svg { fill: white; width: 16px; height: 16px; }
-    .github-label {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .github-sub {
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-    .github-arrow {
-      color: var(--muted);
-      font-size: 1.1rem;
-      transition: transform 0.2s;
-    }
-    .github-card:hover .github-arrow { transform: translateX(4px); }
-
-    /* ── CONTACT ── */
-    #contact { background: var(--bg2); }
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .contact-info h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-    .contact-info p {
-      color: var(--muted);
-      line-height: 1.8;
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
-    }
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      margin-bottom: 1rem;
-    }
-    .contact-item-icon {
-      width: 38px; height: 38px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-    }
-    .contact-item-text {
-      font-size: 0.88rem;
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.95rem 1.1rem;
-      margin-bottom: 1rem;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-size: 0.92rem;
-      font-family: 'Epilogue', sans-serif;
-      transition: 0.25s;
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      border-color: var(--accent);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(42,42,114,0.08);
-    }
-    .contact-form textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-    .btn-send {
-      background: var(--accent);
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 8px;
-      color: white;
-      font-weight: 700;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.25s;
-      width: 100%;
-      font-family: 'Epilogue', sans-serif;
-      letter-spacing: 0.03em;
-    }
-    .btn-send:hover { background: #3d3d9e; transform: translateY(-2px); box-shadow: 0 10px 28px rgba(42,42,114,0.25); }
-    .btn-send:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-    /* ── FOOTER ── */
-    footer {
-      padding: 2rem 5rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-      background: var(--surface);
-    }
-
-    /* ── SCROLL ANIMATIONS ── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── AMBIENT LIFE: nav, blobs, spotlight, entrance ── */
-    nav {
-      transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-    }
-    nav.scrolled {
-      padding-top: 0.7rem;
-      padding-bottom: 0.7rem;
-      box-shadow: 0 6px 24px rgba(42,42,114,0.08);
-    }
-
-    .ambient-blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(70px);
-      opacity: 0.32;
-      pointer-events: none;
-      z-index: 0;
-      will-change: transform;
-      animation: floatBlob 16s ease-in-out infinite;
-    }
-    .blob-1 { width: 320px; height: 320px; background: var(--accent); top: -60px; right: 6%; }
-    .blob-2 { width: 240px; height: 240px; background: var(--accent2); bottom: -40px; right: 26%; animation-duration: 12s; animation-delay: -5s; }
-    @keyframes floatBlob {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(-30px, 24px) scale(1.08); }
-      66% { transform: translate(22px, -18px) scale(0.94); }
-    }
-
-    .hero-spotlight {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 30%), rgba(42,42,114,0.08), transparent 60%);
-      transition: background 0.15s ease;
-    }
-
-    .hero-badge, .hero h1, .hero-desc, .hero-actions, .hero-stats, .hero-visual {
-      opacity: 0;
-      animation: enterUp 0.8s ease forwards;
-    }
-    .hero-badge   { animation-delay: 0.05s; }
-    .hero h1      { animation-delay: 0.15s; }
-    .hero-desc    { animation-delay: 0.28s; }
-    .hero-actions { animation-delay: 0.4s; }
-    .hero-stats   { animation-delay: 0.52s; }
-    .hero-visual  { animation-delay: 0.3s; }
-    @keyframes enterUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .project-thumb { transition: transform 0.35s ease; }
-    .project-card:hover .project-thumb { transform: scale(1.08) rotate(-2deg); }
-
-    .project-card { transform-style: preserve-3d; transition: transform 0.25s ease, box-shadow 0.3s ease; }
-
-    .skill-icon { transition: transform 0.3s ease; }
-    .skill-card:hover .skill-icon { transform: scale(1.12) rotate(-6deg); }
-
-    @media (prefers-reduced-motion: reduce) {
-      .ambient-blob { animation: none; }
-      .hero-badge, .hero h1, .hero-desc, .hero-actions, .hero-stats, .hero-visual {
-        animation: none; opacity: 1;
-      }
-      .fade-up { transition: none; opacity: 1; transform: none; }
-      .project-card:hover .project-thumb, .skill-card:hover .skill-icon { transform: none; }
-    }
-
-    /* ── MOBILE ── */
-    @media (max-width: 900px) {
-      nav { padding: 1rem 1.5rem; }
+    @media (max-width: 820px) {
+      .hero-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 400px; order: -1; }
+      .stats { grid-auto-flow: row; gap: 1rem; }
+      .stat + .stat { padding-left: 0; border-left: none; }
       .nav-links { display: none; }
-      .hero {
-        grid-template-columns: 1fr;
-        padding: 6rem 1.5rem 3rem;
-        text-align: center;
-      }
-      .hero::before { display: none; }
-      .hero-desc { margin: 0 auto 2rem; }
-      .hero-actions { justify-content: center; }
-      .hero-stats { justify-content: center; }
-      .profile-wrapper { max-width: 260px; }
-      section { padding: 4rem 1.5rem; }
-      .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
-      footer { flex-direction: column; gap: 0.8rem; text-align: center; padding: 1.5rem; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (max-width: 600px) {
+      .skills-grid, .projects-grid, .field-row, .wide-inner { grid-template-columns: 1fr; }
+      .section-head { flex-direction: column; align-items: flex-start; }
+      .wide-shot { display: none; }
+      .code-card { font-size: 0.62rem; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Icon sprite: every icon below references these symbols via <use> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0 1 14 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7"/><path d="M18 14a7 7 0 0 1 4 6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5a1.5 1.5 0 0 1 3 0v6"/><path d="M11 11V3.5a1.5 1.5 0 0 1 3 0V11"/><path d="M14 11V5a1.5 1.5 0 0 1 3 0v8"/><path d="M8 13l-1.6-2.4a1.5 1.5 0 0 0-2.4 1.8L7 18a6 6 0 0 0 5 3h1a6 6 0 0 0 6-6v-2"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polygon points="16 8 14 14 8 16 10 10 16 8"/></symbol>
+    <symbol id="i-cloche" viewBox="0 0 24 24"><path d="M3 18h18"/><path d="M5 18a7 7 0 0 1 14 0"/><line x1="12" y1="8" x2="12" y2="6"/><circle cx="12" cy="5" r="1"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-1-2.6c3.3-.4 6.8-1.6 6.8-7.3A5.7 5.7 0 0 0 21.3 4.8 5.3 5.3 0 0 0 21.2 1S19.9.6 17 2.5a13.4 13.4 0 0 0-7 0C7.1.6 5.8 1 5.8 1a5.3 5.3 0 0 0-.1 3.8A5.7 5.7 0 0 0 4.2 8.8c0 5.7 3.5 6.9 6.8 7.3a3.4 3.4 0 0 0-1 2.6V22"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><line x1="4" y1="21" x2="20" y2="21"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+    <symbol id="i-atom" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.8"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><polyline points="9 12 11 14 15 10"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a5 5 0 0 1-.5-10A6 6 0 0 1 18 9a4.5 4.5 0 0 1-.5 9z"/><polyline points="9 14 12 11 15 14"/><line x1="12" y1="11" x2="12" y2="18"/></symbol>
+    <symbol id="i-wp" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M6 8l3.5 9 2.5-6 2.5 6L18 8"/></symbol>
+    <symbol id="i-device" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></symbol>
+  </svg>
+
+  <!-- ── NAV ── -->
   <nav>
-    <a href="#" class="nav-logo">dev<span>.</span>folio</a>
-    <div class="nav-links">
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+    <div class="container nav-inner">
+      <a href="#home" class="nav-logo" aria-label="Jude Burnea home"><span class="nav-logo-mark">J</span>Jude Burnea</a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#home" class="active">Home</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="btn-resume" href="Jude_Burnea_Resume.pdf" download><svg class="icon"><use href="#i-download"/></svg>Resume</a>
+      </div>
     </div>
   </nav>
 
-  <!-- ── HERO ── -->
-  <section class="hero" id="home">
-    <div class="ambient-blob blob-1"></div>
-    <div class="ambient-blob blob-2"></div>
-    <div class="hero-spotlight" id="heroSpotlight"></div>
-
-    <div class="hero-text">
-      <div class="hero-badge">Available for work</div>
-      <h1>
-        Full Stack<br>
-        <em>Developer.</em>
-      </h1>
-      <p class="hero-desc">
-        I build modern, scalable web applications using Laravel, Next.js, React, TypeScript, Node.js, and Python.
-        Passionate about clean code, real-time features, and AI-powered solutions.
-      </p>
-      <div class="hero-actions">
-        <a href="#projects" class="btn-primary">View My Work ↓</a>
-        <a href="#contact" class="btn-outline">Let's Talk →</a>
-      </div>
-      <div class="hero-stats">
+  <main>
+    <!-- ── HERO ── -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
         <div>
-          <div class="stat-num" data-count="8">0</div>
-          <div class="stat-label">Projects Shipped</div>
-        </div>
-        <div>
-          <div class="stat-num" data-count="5">0</div>
-          <div class="stat-label">Tech Stacks</div>
-        </div>
-        <div>
-          <div class="stat-num" data-count="2">0</div>
-          <div class="stat-label">Years Building</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <div class="profile-wrapper">
-        <img src="image/my-pic.png" alt="Jude Burnea">
-      </div>
-    </div>
-  </section>
-
-  <!-- ── SKILLS ── -->
-  <section id="skills">
-    <p class="section-label">What I Work With</p>
-    <h2 class="section-title">Technical Skills</h2>
-    <p class="section-sub">Modern full-stack technologies for building fast and intelligent applications.</p>
-
-    <div class="skills-grid">
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#fff0f0;">🔴</div>
-        <div class="skill-name">Laravel + PHP</div>
-        <div class="skill-desc">Robust backend, APIs, authentication & business logic.</div>
-      </div>
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#e8f6ff;">⚛️</div>
-        <div class="skill-name">React + TypeScript</div>
-        <div class="skill-desc">Modern, type-safe frontend with Next.js.</div>
-      </div>
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#f0fff4;">🟢</div>
-        <div class="skill-name">Node.js + JavaScript</div>
-        <div class="skill-desc">Server-side JS, APIs & real-time apps.</div>
-      </div>
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#f0fff4;">🐍</div>
-        <div class="skill-name">Python + AI</div>
-        <div class="skill-desc">AI-powered chatbots with conversation history using Groq.</div>
-      </div>
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#f0efff;">📋</div>
-        <div class="skill-name">Supabase + Prisma</div>
-        <div class="skill-desc">Next.js 15 full-stack apps with real-time data and Groq AI.</div>
-      </div>
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#fffbea;">🗄️</div>
-        <div class="skill-name">MySQL & Databases</div>
-        <div class="skill-desc">Database design, optimization & query performance tuning.</div>
-      </div>
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#fff0f5;">🚀</div>
-        <div class="skill-name">Deployment</div>
-        <div class="skill-desc">Vercel, Render, Docker, Railway, environment & API key management.</div>
-      </div>
-      <div class="skill-card fade-up">
-        <div class="skill-icon" style="background:#e8f6ff;">🔗</div>
-        <div class="skill-name">APIs & Webhooks</div>
-        <div class="skill-desc">Payment gateways, third-party integrations, and webhook verification.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── PROJECTS ── -->
-  <section id="projects" style="background: var(--bg);">
-    <p class="section-label">What I've Built</p>
-    <h2 class="section-title">Featured Projects</h2>
-    <p class="section-sub">Real-world applications spanning SaaS, e-commerce, AI, and institutional systems.</p>
-
-    <div class="projects-grid">
-
-      <!-- Taskflow -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #1e2937, #334155);">📋</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Next.js 15</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">Supabase</span>
-            <span class="tag">Groq AI</span>
+          <div class="badge">BSIT Graduate <span>•</span> 2026</div>
+          <h1>Jude <span class="grad">Burnea</span></h1>
+          <div class="role">Full-Stack <span class="grad">Web Developer</span></div>
+          <div class="contact-lines">
+            <div class="row"><span class="item"><svg class="icon"><use href="#i-pin"/></svg>Sindangan, Zamboanga del Norte, Philippines</span></div>
+            <div class="row">
+              <a href="mailto:judeburnea20@gmail.com"><svg class="icon"><use href="#i-mail"/></svg>judeburnea20@gmail.com</a>
+              <a href="tel:+639977658905"><svg class="icon"><use href="#i-phone"/></svg>+63 997 765 8905</a>
+              <a href="https://github.com/Burnzkie" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>github.com/Burnzkie</a>
+            </div>
           </div>
-          <div class="project-title">Taskflow — SaaS Kanban Board</div>
-          <div class="project-desc collapsed">
-            Full-stack Kanban board with drag & drop, real-time updates, Clerk auth, PostgreSQL,
-            AI task suggestions powered by Groq, and an analytics dashboard.
-            Deployed on Vercel with Neon PostgreSQL.
+          <p class="hero-desc">I build modern web applications using Laravel, React, TypeScript, Node.js, and Python. I love turning ideas into real, working products.</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">View My Projects <svg class="icon"><use href="#i-arrow"/></svg></a>
+            <a href="#contact" class="btn btn-outline">Let's Talk <svg class="icon"><use href="#i-chat"/></svg></a>
           </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Burnzkie/task-flow" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <div class="stats">
+            <div class="stat"><div class="stat-icon"><svg class="icon"><use href="#i-device"/></svg></div><div><div class="stat-num">3+</div><div class="stat-label">Projects Completed</div></div></div>
+            <div class="stat"><div class="stat-icon"><svg class="icon"><use href="#i-code"/></svg></div><div><div class="stat-num">1+</div><div class="stat-label">Year Learning &amp; Building</div></div></div>
+            <div class="stat"><div class="stat-icon"><svg class="icon"><use href="#i-users"/></svg></div><div><div class="stat-num">100%</div><div class="stat-label">Committed to Growth</div></div></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="glass glass-a" aria-hidden="true"></div>
+          <div class="glass glass-b" aria-hidden="true"></div>
+          <div class="square sq-a" aria-hidden="true"></div>
+          <div class="square sq-b" aria-hidden="true"></div>
+          <div class="script" aria-hidden="true">Build<br>Improve<br>Repeat</div>
+          <div class="photo-frame"><img src="image/my-pic.png" alt="Portrait of Jude Burnea"></div>
+          <div class="code-card" aria-hidden="true">
+            <span class="k">const</span> developer = {<br>
+            &nbsp;&nbsp;skills: [<span class="s">"Laravel"</span>, <span class="s">"React"</span>, <span class="s">"Node.js"</span>],<br>
+            &nbsp;&nbsp;mindset: <span class="s">"Build"</span>,<br>
+            };
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section class="section-line" id="skills">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">My Skills</div>
+            <h2>Technical Skills</h2>
+            <p class="section-sub">Modern technologies and tools I use to build scalable and user-friendly applications.</p>
+          </div>
+          <a class="head-link" href="Jude_Burnea_Resume.pdf" target="_blank" rel="noopener">View All Skills <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card"><div class="skill-icon"><svg class="icon"><use href="#i-atom"/></svg></div><div><div class="skill-name">Frontend</div><div class="skill-desc">React, TypeScript, JavaScript, HTML5, CSS3, Tailwind CSS</div></div></div>
+          <div class="skill-card"><div class="skill-icon"><svg class="icon"><use href="#i-code"/></svg></div><div><div class="skill-name">Backend</div><div class="skill-desc">Laravel, PHP, Node.js, Express, Python, FastAPI, REST APIs</div></div></div>
+          <div class="skill-card"><div class="skill-icon"><svg class="icon"><use href="#i-db"/></svg></div><div><div class="skill-name">Databases</div><div class="skill-desc">PostgreSQL, MySQL, Prisma, SQLAlchemy, Alembic</div></div></div>
+          <div class="skill-card"><div class="skill-icon"><svg class="icon"><use href="#i-shield"/></svg></div><div><div class="skill-name">Auth &amp; Testing</div><div class="skill-desc">JWT, Laravel Sanctum, Google sign-in, role-based access, PHPUnit, Pytest</div></div></div>
+          <div class="skill-card"><div class="skill-icon"><svg class="icon"><use href="#i-cloud"/></svg></div><div><div class="skill-name">Deploy &amp; Tools</div><div class="skill-desc">Git, GitHub Actions, Docker, Render, Supabase, XAMPP</div></div></div>
+          <div class="skill-card"><div class="skill-icon"><svg class="icon"><use href="#i-wp"/></svg></div><div><div class="skill-name">CMS</div><div class="skill-desc">WordPress</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ── -->
+    <section class="section-line" id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">My Projects</div>
+            <h2>Featured Projects</h2>
+            <p class="section-sub">Real-world applications I built, from organization systems to AI-powered tools.</p>
+          </div>
+          <a class="head-link" href="https://github.com/Burnzkie" target="_blank" rel="noopener">View All Projects <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- SOMS -->
+          <article class="project-card">
+            <div class="shot" style="--shot-bg: linear-gradient(135deg, #0f1f5c, #2b3fa8); --accent: #4fd1a5;">
+              <span class="shot-chip"><svg class="icon"><use href="#i-qr"/></svg>SOMS</span>
+              <div class="shot-window"><div class="shot-side"></div><div class="shot-main"><i></i><i></i><i></i><i></i></div></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title"><span class="title-icon"><svg class="icon"><use href="#i-qr"/></svg></span>SOMS – Student Organization Management System</h3>
+              <div class="project-tags"><span class="tag">Laravel</span><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Sanctum</span><span class="tag">Tailwind</span></div>
+              <p class="project-desc">A web system for the Student Government Organization with role-based access, events, QR check-in, e-voting, and more.</p>
+              <a class="project-link" href="https://github.com/Burnzkie/SOMS" target="_blank" rel="noopener">View Project <svg class="icon"><use href="#i-arrow"/></svg></a>
+            </div>
+          </article>
+
+          <!-- FSL Recognition -->
+          <article class="project-card">
+            <div class="shot" style="--shot-bg: linear-gradient(135deg, #0c2b4a, #1b4f8f); --accent: #5eb6ff;">
+              <span class="shot-chip"><svg class="icon"><use href="#i-hand"/></svg>FSL</span>
+              <div class="shot-window"><div class="shot-side"></div><div class="shot-main"><i></i><i></i><i></i><i></i></div></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title"><span class="title-icon"><svg class="icon"><use href="#i-hand"/></svg></span>Filipino Sign Language (FSL) Recognition App</h3>
+              <div class="project-tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">PostgreSQL</span></div>
+              <p class="project-desc">Real-time sign recognition, voice-to-sign, multi-role access, and a sign library with recording and translation.</p>
+              <a class="project-link" href="https://github.com/Burnzkie/sign-language" target="_blank" rel="noopener">View Project <svg class="icon"><use href="#i-arrow"/></svg></a>
+            </div>
+          </article>
+
+          <!-- JobPilot AI -->
+          <article class="project-card">
+            <div class="shot" style="--shot-bg: linear-gradient(135deg, #1b1b5c, #5b3fc4); --accent: #b388ff;">
+              <span class="shot-chip"><svg class="icon"><use href="#i-compass"/></svg>JobPilot AI</span>
+              <div class="shot-window"><div class="shot-side"></div><div class="shot-main"><i></i><i></i><i></i><i></i></div></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title"><span class="title-icon"><svg class="icon"><use href="#i-compass"/></svg></span>JobPilot AI – Job Application Manager</h3>
+              <div class="project-tags"><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">FastAPI</span><span class="tag">Python</span><span class="tag">PostgreSQL</span></div>
+              <p class="project-desc">Track applications, generate cover letters, parse resumes, and match jobs to skills with AI-powered features.</p>
+              <a class="project-link" href="https://github.com/Burnzkie/jobpilot-ai" target="_blank" rel="noopener">View Project <svg class="icon"><use href="#i-arrow"/></svg></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="projects-row2">
+          <!-- CaterEase -->
+          <article class="project-card project-wide">
+            <div class="wide-inner">
+              <div class="wide-shot" aria-hidden="true">
+                <div class="laptop"><i></i><i></i></div>
+                <div class="phone"><i></i><i></i></div>
               </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Burnzkie/task-flow</div>
+              <div class="wide-text">
+                <div class="brand"><svg class="icon"><use href="#i-cloche"/></svg>CaterEase</div>
+                <h3 class="project-title">CaterEase – Catering Service Management System</h3>
+                <div class="project-tags"><span class="tag">Laravel</span><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Tailwind CSS</span><span class="tag">Docker</span></div>
+                <p class="project-desc">Run a catering business end to end: customer bookings with live availability checks, payments and receipts, event inventory, reports, and email/SMS reminders for customers, staff, and admins.</p>
+                <a class="project-link" href="https://github.com/Burnzkie/CaterEase" target="_blank" rel="noopener">View Project <svg class="icon"><use href="#i-arrow"/></svg></a>
               </div>
             </div>
-            <div class="github-arrow">→</div>
-          </a>
+          </article>
+
+          <article class="project-card more-card">
+            <h3>More Projects</h3>
+            <p>Explore my other works and experiments on GitHub.</p>
+            <a class="project-link" href="https://github.com/Burnzkie" target="_blank" rel="noopener" style="margin-top:0">View GitHub <svg class="icon"><use href="#i-arrow"/></svg></a>
+            <div class="more-gh" aria-hidden="true"><svg class="icon"><use href="#i-github"/></svg></div>
+          </article>
         </div>
       </div>
+    </section>
 
-      <!-- Shad AI -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0f172a, #1e3a5f);">🤖</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Node.js</span>
-            <span class="tag">Supabase</span>
-            <span class="tag">Groq AI</span>
-          </div>
-          <div class="project-title">Shad AI — Intelligent Chatbot Platform</div>
-          <div class="project-desc collapsed">
-            Full-stack AI chatbot platform that enables users to engage in intelligent conversations through a modern and responsive web interface.
-            <br><br>
-            <strong>Core Features:</strong>
-            <ul>
-              <li>AI language model integration via Groq API</li>
-              <li>Persistent chat history management with Supabase</li>
-              <li>User-friendly sidebar navigation</li>
-              <li>Real-time messaging interface</li>
-              <li>Context-aware conversations</li>
-              <li>Scalable backend architecture built with Node.js</li>
-              <li>Designed for future multi-model AI & document processing support</li>
-            </ul>
-          </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Burnzkie/shad-ai" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Burnzkie/shad-ai</div>
-              </div>
-            </div>
-            <div class="github-arrow">→</div>
-          </a>
+    <!-- ── CONTACT ── -->
+    <section class="section-line" id="contact">
+      <div class="container contact-grid">
+        <div class="contact-info">
+          <div class="eyebrow">Get In Touch</div>
+          <h2>Let's Work Together</h2>
+          <p>Have a project in mind? I'd love to hear from you.</p>
+          <div class="contact-item"><span class="ico"><svg class="icon"><use href="#i-mail"/></svg></span>judeburnea20@gmail.com</div>
+          <div class="contact-item"><span class="ico"><svg class="icon"><use href="#i-pin"/></svg></span>Sindangan, Zamboanga del Norte</div>
+          <div class="contact-item"><span class="ico"><svg class="icon"><use href="#i-users"/></svg></span>Available for freelance &amp; full-time work</div>
         </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+          <input type="hidden" name="access_key" value="26746fab-cfa2-4409-bbce-3110fa1d3380">
+          <!-- Honeypot: real visitors never see or fill this; bots do -->
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field-row">
+            <label class="field"><svg class="icon"><use href="#i-user"/></svg><input type="text" name="name" placeholder="Your Name" aria-label="Your name" required></label>
+            <label class="field"><svg class="icon"><use href="#i-mail"/></svg><input type="email" name="email" placeholder="Your Email" aria-label="Your email" required></label>
+          </div>
+          <label class="field"><textarea name="message" placeholder="Tell me about your project or idea..." aria-label="Your message" required></textarea></label>
+          <button type="submit" class="btn btn-send" id="submitBtn">Send Message <svg class="icon"><use href="#i-arrow"/></svg></button>
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+        </form>
       </div>
+    </section>
+  </main>
 
-      <!-- School Payment -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">💸</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Laravel</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Payment Gateway</span>
-          </div>
-          <div class="project-title">School Online Payment Management System</div>
-          <div class="project-desc collapsed">
-            Full-stack web-based school payment system designed to automate financial transactions between schools, students, and parents.
-            Supports five user roles: <strong>Administrator</strong>, <strong>Treasurer</strong>, <strong>Cashier</strong>, <strong>Student</strong>, and <strong>Parent</strong>.
-            <br><br>
-            <strong>Core Features:</strong>
-            <ul>
-              <li>Multi-role authentication system</li>
-              <li>Online payment gateway integration (GCash/Maya)</li>
-              <li>Student fee management & clearance approval</li>
-              <li>Revenue and transaction analytics</li>
-              <li>Parent-to-student account linking</li>
-              <li>Deployed on Render with Clever Cloud MySQL</li>
-            </ul>
-          </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Burnzkie/school-online-payment" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Burnzkie/school-online-payment</div>
-              </div>
-            </div>
-            <div class="github-arrow">→</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- JDBShop -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0d1b2a, #1b3a5c);">🛒</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">PHP</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">E-Commerce</span>
-          </div>
-          <div class="project-title">JDBShop — E-Commerce Platform</div>
-          <div class="project-desc collapsed">
-            Complete e-commerce platform with role-based access for <strong>Administrators</strong>, <strong>Staff</strong>, and <strong>Customers</strong>.
-            <br><br>
-            <strong>Core Features:</strong>
-            <ul>
-              <li>Online payment (PayMongo GCash/Maya) & COD</li>
-              <li>Real-time order tracking & delivery management</li>
-              <li>Dynamic shipping fee calculation via PSGC API</li>
-              <li>Refund and cancellation management</li>
-              <li>Monthly sales analytics dashboard</li>
-              <li>Product inventory CRUD operations</li>
-            </ul>
-          </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Burnzkie/jdb-online-store" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Burnzkie/jdb-online-store</div>
-              </div>
-            </div>
-            <div class="github-arrow">→</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- PAC-AIMS -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #1a2a4a, #2a2a72);">🏫</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Laravel</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">Python</span>
-            <span class="tag">Multi-Role</span>
-          </div>
-          <div class="project-title">PAC-AIMS — School Management System</div>
-          <div class="project-desc collapsed">
-            Collaborative Laravel school management system built for Philippine Advent College, paired with a Python analytics service.
-            Handles multi-role workflows across Admin, Cashier, Treasurer, Student, and Parent portals.
-            <br><br>
-            <strong>Core Features:</strong>
-            <ul>
-              <li>Billing and carryover balance logic across semesters</li>
-              <li>Online payment submission/approval workflow (GCash/Maya proof review)</li>
-              <li>Role-based middleware and access control</li>
-              <li>FullCalendar event system with multi-image uploads</li>
-              <li>Dark mode with database-persisted preference</li>
-              <li>Deployed on Render with Clever Cloud MySQL</li>
-            </ul>
-          </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Jetro05/PAC-AIMS" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Jetro05/PAC-AIMS</div>
-              </div>
-            </div>
-            <div class="github-arrow">→</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- FSL Sign Language Recognition -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0d3b3e, #128a8f);">🤟</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">React</span>
-            <span class="tag">TypeScript</span>
-            <span class="tag">MediaPipe</span>
-            <span class="tag">Supabase</span>
-          </div>
-          <div class="project-title">Filipino Sign Language Recognition</div>
-          <div class="project-desc collapsed">
-            Full-stack Filipino Sign Language (FSL) recognition web app combining real-time gesture tracking with machine learning,
-            born from a long-standing thesis interest in sign language recognition.
-            <br><br>
-            <strong>Core Features:</strong>
-            <ul>
-              <li>MediaPipe Holistic landmark extraction with DTW-based gesture matching</li>
-              <li>7-phase MobileNetV2 transfer-learning pipeline for static hand-shape classification</li>
-              <li>Google OAuth with student/admin role gating via Supabase Row-Level Security</li>
-              <li>Express/Prisma backend on Supabase PostgreSQL</li>
-              <li>Web Speech API integration for speech-to-sign</li>
-              <li>Frontend on Vercel, backend on Render</li>
-            </ul>
-          </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Burnzkie/sign-language" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Burnzkie/sign-language</div>
-              </div>
-            </div>
-            <div class="github-arrow">→</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- JobPilot AI -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #1e1b3a, #4c3a8f);">🧭</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">FastAPI</span>
-            <span class="tag">React</span>
-            <span class="tag">PostgreSQL</span>
-            <span class="tag">Groq AI</span>
-          </div>
-          <div class="project-title">JobPilot AI — Job-Hunting Assistant</div>
-          <div class="project-desc collapsed">
-            AI-assisted job-hunting app with a FastAPI/SQLAlchemy backend and a React/TypeScript/TailwindCSS frontend,
-            built to streamline the search-to-apply pipeline.
-            <br><br>
-            <strong>Core Features:</strong>
-            <ul>
-              <li>LLM-powered cover letter generation via Groq</li>
-              <li>Dashboard statistics computed from real database aggregates</li>
-              <li>AI-driven job ranking and recommendation engine</li>
-              <li>PostgreSQL persistence via SQLAlchemy ORM</li>
-              <li>Type-safe React frontend styled with TailwindCSS</li>
-            </ul>
-          </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Burnzkie/jobpilot-ai" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Burnzkie/jobpilot-ai</div>
-              </div>
-            </div>
-            <div class="github-arrow">→</div>
-          </a>
-        </div>
-      </div>
-
-      <!-- SOMS -->
-      <div class="project-card fade-up">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #241738, #3a2a5c);">🗳️</div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag">Laravel</span>
-            <span class="tag">Flutter</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">E-Voting</span>
-          </div>
-          <div class="project-title">SOMS — Student Organization Management System</div>
-          <div class="project-desc collapsed">
-            Capstone system for Philippine Advent College's Supreme Student Government, built with a Laravel Blade web app
-            and a companion Flutter mobile app sharing a MySQL backend.
-            <br><br>
-            <strong>Core Features:</strong>
-            <ul>
-              <li>Electronic voting system as the primary capstone feature</li>
-              <li>Full UI redesign across Officer, Student, and Admin roles</li>
-              <li>Dashboard, Events, Calendar, Fines, Announcements, Members, and Reports modules</li>
-              <li>Event image uploads stored on Cloudflare R2</li>
-              <li>Unified design system across web and mobile clients</li>
-            </ul>
-          </div>
-          <button class="see-more-btn">See more →</button>
-          <a href="https://github.com/Burnzkie/SOMS" target="_blank" class="github-card">
-            <div class="github-card-left">
-              <div class="github-icon">
-                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              </div>
-              <div>
-                <div class="github-label">View on GitHub</div>
-                <div class="github-sub">Burnzkie/SOMS</div>
-              </div>
-            </div>
-            <div class="github-arrow">→</div>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ── CONTACT ── -->
-  <section id="contact">
-    <p class="section-label">Get In Touch</p>
-    <h2 class="section-title">Let's Work Together</h2>
-    <p class="section-sub">Have a project in mind? I'd love to hear from you.</p>
-
-    <div class="contact-wrap">
-      <div class="contact-info">
-        <h3>Open to remote opportunities worldwide.</h3>
-        <p>I'm currently available for freelance and remote full-stack development work. Whether you need a SaaS tool, internal system, or e-commerce platform — let's build it.</p>
-        <div class="contact-item">
-          <div class="contact-item-icon">📍</div>
-          <div class="contact-item-text">Philippines (PHT, UTC+8)</div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">✉️</div>
-          <div class="contact-item-text">judeburnea20@gmail.com</div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-item-icon">💼</div>
-          <div class="contact-item-text">Available for U.S. Eastern business hours</div>
-        </div>
-      </div>
-
-      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-        <input type="hidden" name="access_key" value="26746fab-cfa2-4409-bbce-3110fa1d3380">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email Address" required>
-        <textarea name="message" placeholder="Tell me about your project or idea..." rows="5" required></textarea>
-        <button type="submit" class="btn-send" id="submitBtn">Send Message ✉️</button>
-      </form>
-    </div>
-  </section>
-
+  <!-- ── FOOTER ── -->
   <footer>
-    <p>© 2026 — Built by Jude Burnea</p>
-    <p>Laravel · Next.js · TypeScript · Node.js · Python · MySQL</p>
+    <div class="container footer-inner">
+      <div>© 2026 &nbsp;Jude Burnea. All rights reserved.</div>
+      <div class="footer-mid"><span>Build</span>•<span>Improve</span>•<span>Repeat</span></div>
+      <div class="footer-social">
+        <a href="https://github.com/Burnzkie" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+        <a href="mailto:judeburnea20@gmail.com" aria-label="Email"><svg class="icon"><use href="#i-mail"/></svg></a>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // Respect users who've asked for reduced motion — skip the decorative JS animations for them
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Scroll fade-in
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // Nav: add a "scrolled" state once the page moves, for a tighter/shadowed bar
-    const navEl = document.querySelector('nav');
-    const updateNavState = () => navEl.classList.toggle('scrolled', window.scrollY > 12);
-    updateNavState();
-    window.addEventListener('scroll', updateNavState, { passive: true });
-
-    // Hero spotlight: a soft glow that follows the cursor within the hero section
-    if (!prefersReducedMotion) {
-      const heroSection = document.getElementById('home');
-      const spotlight = document.getElementById('heroSpotlight');
-      heroSection.addEventListener('mousemove', (e) => {
-        const rect = heroSection.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        spotlight.style.setProperty('--mx', `${x}%`);
-        spotlight.style.setProperty('--my', `${y}%`);
-      });
-    }
-
-    // Hero stats: count up from 0 to their target once they scroll into view
-    const statEls = document.querySelectorAll('.stat-num[data-count]');
-    const animateCount = (el) => {
-      const target = parseInt(el.dataset.count, 10);
-      if (prefersReducedMotion) { el.textContent = `${target}+`; return; }
-      const duration = 900;
-      const start = performance.now();
-      const tick = (now) => {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-        el.textContent = `${Math.round(target * eased)}+`;
-        if (progress < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
+    // Wraps an async call so callers get [data, error] instead of try/catch noise
+    const handleAsync = async (promise) => {
+      try {
+        return [await promise, null];
+      } catch (error) {
+        return [null, error];
+      }
     };
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    statEls.forEach(el => statsObserver.observe(el));
 
-    // Project cards: a light 3D tilt that follows the cursor, purely a hover-time effect
-    if (!prefersReducedMotion) {
-      document.querySelectorAll('.project-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const px = (e.clientX - rect.left) / rect.width - 0.5;
-          const py = (e.clientY - rect.top) / rect.height - 0.5;
-          card.style.transform = `perspective(700px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 5).toFixed(2)}deg) translateY(-6px)`;
-        });
-        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    // Nav: highlight the link for whichever section is currently in view
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
       });
-    }
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('main section[id]').forEach((section) => sectionObserver.observe(section));
 
-    // See more / less
-    document.querySelectorAll('.see-more-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const desc = btn.previousElementSibling;
-        desc.classList.toggle('collapsed');
-        btn.textContent = desc.classList.contains('collapsed') ? 'See more →' : 'See less ↑';
-      });
-    });
-
-    // Form submit feedback
-    const form = document.querySelector('form');
+    // Contact form: submit via fetch so we can show loading, success, and error states
+    const form = document.getElementById('contactForm');
     const submitBtn = document.getElementById('submitBtn');
-    form.addEventListener('submit', () => {
-      submitBtn.textContent = 'Sending...';
+    const statusEl = document.getElementById('formStatus');
+    const defaultBtnHtml = submitBtn.innerHTML;
+
+    // Updates the status line under the button (type: '', 'success', or 'error')
+    const setStatus = (message, type = '') => {
+      statusEl.textContent = message;
+      statusEl.className = `form-status ${type}`.trim();
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+
       submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      setStatus('');
+
+      const [response, requestError] = await handleAsync(fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      }));
+      const [result] = requestError ? [null] : await handleAsync(response.json());
+      const isSent = Boolean(result && result.success);
+
+      if (isSent) form.reset();
+      setStatus(
+        isSent ? "Message sent. Thanks, I'll reply soon!" : 'Could not send your message. Please try again or email me directly.',
+        isSent ? 'success' : 'error'
+      );
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = defaultBtnHtml;
     });
   </script>
 </body>
